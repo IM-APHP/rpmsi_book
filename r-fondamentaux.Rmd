@@ -35,7 +35,9 @@ Il existe d'autres types d'objets qui permettent de donner au langage puissance 
 On peut créer de nouveaux objets avec l'instruction `<-`:
 
 ```{r}
+
 x <- 3 * 4 
+x
 
 ```
 
@@ -85,7 +87,7 @@ Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces
 - les facteurs
 Nous approfondirons ces différentes types au cours du livre.
 
-Le niveau suivant le vecteur qui correspond vraiment au cœur du langage. Nous avons déjà utilisé ce type d'objet :
+Le niveau suivant le vecteur qui correspond vraiment au cœur du langage. L'instruction `:` permet de créer facilement des séquences :
 ```{r}
 x<- 1:10
 ```
@@ -94,7 +96,7 @@ Ils sont bien sur constitués par un ensemble de données élémentaires d’un 
 ```{r}
 x+5
 ```
-On voit que le chiffre 5 a été ajouté à l’ensemble des éléments du vecteur en une seule instruction. Ce calcul vectoriel fait la grande force de R et assure à la fois une rapidité d'exécution (l’ensemble du détail du calcul a été programmé en C avec le maximum d’efficacité).
+On voit que le chiffre 5 a été ajouté à l’ensemble des éléments du vecteur en une seule instruction. Le calcul est vectorisé c'est ce qui fait la grande force de R et qui assure à la fois une simplicité d'écriture (pas de boucle à écrire) et une rapidité d'exécution (l’ensemble du détail du calcul a été programmé en C avec le maximum d’efficacité).
 
 En fait, le niveau de base des objets R sont des vecteurs de données élémentaires et il n'existe pas à proprement parler d'objet vecteur dont on pourrait tester le type. Nous indiquons des fonctions qui permettent d'avoir d'obtenir des information sur la nature des objets.
 
@@ -102,6 +104,11 @@ En fait, le niveau de base des objets R sont des vecteurs de données élémenta
 str(x)
 class(x)
 typeof(x)
+
+```
+La taille du vecteur :
+```{r}
+length(x)
 
 ```
 

@@ -63,6 +63,11 @@ On peut créer de nouveaux objets avec l'instruction `<-`:
 
 ```r
 x <- 3 * 4 
+x
+```
+
+```
+## [1] 12
 ```
 
 Toutes les instructions (statements) qui permettent de créer des objets (**assignment** statements) sont de la forme :
@@ -115,7 +120,7 @@ Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces
 - les facteurs
 Nous approfondirons ces différentes types au cours du livre.
 
-Le niveau suivant le vecteur qui correspond vraiment au cœur du langage. Nous avons déjà utilisé ce type d'objet :
+Le niveau suivant le vecteur qui correspond vraiment au cœur du langage. L'instruction `:` permet de créer facilement des séquences :
 
 ```r
 x<- 1:10
@@ -130,7 +135,7 @@ x+5
 ```
 ##  [1]  6  7  8  9 10 11 12 13 14 15
 ```
-On voit que le chiffre 5 a été ajouté à l’ensemble des éléments du vecteur en une seule instruction. Ce calcul vectoriel fait la grande force de R et assure à la fois une rapidité d'exécution (l’ensemble du détail du calcul a été programmé en C avec le maximum d’efficacité).
+On voit que le chiffre 5 a été ajouté à l’ensemble des éléments du vecteur en une seule instruction. Le calcul est vectorisé c'est ce qui fait la grande force de R et qui assure à la fois une simplicité d'écriture (pas de boucle à écrire) et une rapidité d'exécution (l’ensemble du détail du calcul a été programmé en C avec le maximum d’efficacité).
 
 En fait, le niveau de base des objets R sont des vecteurs de données élémentaires et il n'existe pas à proprement parler d'objet vecteur dont on pourrait tester le type. Nous indiquons des fonctions qui permettent d'avoir d'obtenir des information sur la nature des objets.
 
@@ -157,6 +162,15 @@ typeof(x)
 
 ```
 ## [1] "integer"
+```
+La taille du vecteur :
+
+```r
+length(x)
+```
+
+```
+## [1] 10
 ```
 
 Ces vecteurs peuvent ensuite être associé en tableau de données (dataframe) qui seront les éléments les plus utilisés pour l’analyse de données PMSI.

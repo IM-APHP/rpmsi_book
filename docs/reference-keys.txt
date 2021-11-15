@@ -2,3 +2,5 @@ introduction
 les-notions-et-concepts-que-vous-aller-acquérir
 language-r-les-fondamentaux
 elements-de-base-de-la-programmation-en-r
+premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr
+import-des-données

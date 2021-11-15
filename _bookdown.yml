@@ -4,8 +4,8 @@ new_session: yes
 rmd_files: [
   "index.Rmd",
   "intro.Rmd",
-  "r-fondamentaux.Rmd"
-
+  "r-fondamentaux.Rmd",
+  "pmeasyr-premiers-pas.Rmd",
 ]
 
 output_dir: "docs"
