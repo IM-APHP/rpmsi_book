@@ -119,3 +119,14 @@ rum21$rum %>% dplyr::filter(dp == "I10" | nas %in% das_i10$nas ) %>%
   group_by(moissor) %>%
   summarise(nb = length(unique(nas)))
 ```
+
+
+Faire la même recherche pour les patients qui résident à Paris :
+```{r eval = FALSE}
+rum21$rum %>% dplyr::filter(dp == "I10" | nas %in% das_i10$nas, 
+                            substr(cdresi,1,2) == "75" ) %>%
+  left_join(.,dates_sejours) %>%
+  mutate(moissor = format(dtsor,"%m")  ) %>%
+  group_by(moissor) %>%
+  summarise(nb = length(unique(nas)))
+```
