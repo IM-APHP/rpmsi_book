@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | Analyser les données PMSI avec R</title>
+  <title>Page not found | Analyser les données PMSI avec R</title>
   <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
   <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | Analyser les données PMSI avec R" />
+  <meta property="og:title" content="Page not found | Analyser les données PMSI avec R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://r4ds.had.co.nz/" />
-  <meta property="og:image" content="https://r4ds.had.co.nz//cover.png" />
+  
+  <meta property="og:image" content="/cover.png" />
   <meta property="og:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
   <meta name="github-repo" content="IM-APHP/rpmsi_book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | Analyser les données PMSI avec R" />
+  <meta name="twitter:title" content="Page not found | Analyser les données PMSI avec R" />
   
   <meta name="twitter:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
-  <meta name="twitter:image" content="https://r4ds.had.co.nz//cover.png" />
+  <meta name="twitter:image" content="/cover.png" />
 
-<meta name="author" content="Rémi Flicoteaux, Namik Taright" />
+<meta name="author" content="Rémi Flicoteaux" />
 
 
 
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="language-r-les-fondamentaux.html"/>
+
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Analyser les données PMSI avec R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenu</a></li>
@@ -165,43 +165,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>R est un langage de programmation ce qui signifie qu’il est une interface entre des instructions données par un utilisateur, dans une forme écrite, et les capacités de calcul de l’ordinateur.
-Ces capacités sont très grandes dès lors que les instructions qui lui sont données peuvent être exécutées sans erreur, et c’est bien l’art de la programmation qui est de réussir à utiliser ces fonctionnalités sans erreur.
-L’idée qui sous tend la création des langages tels que R est de simplifier le plus possible ces interactions, de façon à simplifier la vie des utilisateurs.
-L’informatique peut permettre de résoudre de nombreux problèmes et R est un langage spécialisé dans le calcul statistique.
-Ces dernières années, la perception de cette discipline a beaucoup évolué et en particulier avec l’avènement d’une vision peut être plus globale que le calcul statistique lui-même, celle de la science des données, qui inclut également de nombreuses étapes de traitement et préparation des données elles-mêmes et qui sont un préalable au calcul à proprement parler.
-R a suivi ces évolutions avec le développement de package spécifiques qui sont venus enrichir l’architecture de base du langage et qui proposent une nouvelle façon d’écrire le code très influencée par l’idée que chaque projet est en fait l’exécution de tâches élémentaires successives qui s’enchaînent sous la forme d’une chaîne de traitement.
-Nous allons voir dans les premiers chapitres de ce livre les éléments de base du langage et comment ces nouvelles méthodes de programmation peuvent être particulièrement adaptées à l’analyse des données PMSI.</p>
-<p>Cette introduction à la programmation en R qui se veut la plus pragmatique possible, est exclusivement orienté vers l’analyse des données PMSI de façon à faire de R un de vos outils de travail directement opérationnel. Elle ne doit pas faire perdre de vue que toute personne qui souhaitera à l’issue de cette introduction s’engager dans l’utilisation de R sur le long terme, devra approfondir sa connaissance du langage afin de devenir complètement autonome.
-La chance est qu’il existe 2 ouvrages de références qui vont permettront d’acquérir ces compétences :
-- <a href="https://r4ds.had.co.nz/">R for Data Science</a>
-- <a href="https://adv-r.hadley.nz">Advanced R</a> La lecture de ces livres nous apparaît indispensable et loin d’être insurmontable au contraire.
-Cette introduction à R a pour objectif de vous donner l’envie d’aller plus loin.</p>
-<div id="les-notions-et-concepts-que-vous-aller-acquérir" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Les notions et concepts que vous aller acquérir</h2>
-<p>R est un language de programmation, ce qui veut dire que vous allez faire de la programmation.
-Que cela n’inquiètes pas trop ceux qui n’en ont pas l’habitude, c’est au final assez simple.</p>
-<p>R est un langage de programmation, ce qui veut dire que vous allez faire de la programmation.
-Que cela n’inquiète pas trop ceux qui n’en ont pas l’habitude, c’est au final assez simple.</p>
-<p>On peut classiquement séparer en 4 les étapes d’un projet d’analyse des données PMSI :</p>
-<p>1- Importer les données. Pour nous cela repose essentiellement par l’utilisation du package <a href="https://github.com/GuillaumePressiat/pmeasyr">pmeasyr</a>, qui permet d’importer les fichiers officiels en entrée et sortie du logiciel GENRSA et qui sont donc utilisés par les établissements pour la transmission des données à l’ATIH. Il est souvent nécessaire pour bien exploiter les données PMSI d’utiliser des référentiels (CIM, CCAM, GHM,…).
-La plupart des référentiels utiles sont regroupés dans le package <a href="https://github.com/NamikTaright/referime">referime</a>.Néanmoins d’autres types de données peuvent vous êtes utiles et nous couvrirons également le sujets de l’import des données dans d’autres format.</p>
-<p>2- Préparer et transformer des données brute afin par exemple de créer de nouvelle variables qui nous permettent de répondre aux questions posées.</p>
-<p>3- L’analyse de données elles-mêmes. Dans le cadre des projets PMSI c’est souvent la sélections de séjours et la réalisation de statistiques descriptives. Certains projets plus complexes nécessitent de faire de la modélisation.</p>
-<p>4- Enfin, nous avons besoin de communiquer des résultats sous forme de données tabulées et de représentations graphiques.</p>
-<p>Ce livre a pour objectif de vous donner les bases qui vous permettrons de réaliser ces 4 étapes.</p>
-
-</div>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="language-r-les-fondamentaux.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -232,7 +208,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/intro.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
 "text": "Edit"
 },
 "history": {
