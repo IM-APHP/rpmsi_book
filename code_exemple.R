@@ -23,7 +23,7 @@ typeof(x)
 length(x)
 
 #Créer un dataframe
-x <- data.frame(x= 1:10, y= 21:30)
+x <- data.frame( x = 1:10, y = 21:30, colonne1 = 31:40 )
 
 #Type d'objets
 str(x)
@@ -84,7 +84,7 @@ names(rum21)
 
 library(dplyr)
 
-rum21$rum %>% dplyr::filter(dp == "I10")
+rum21$rum %>% filter(dp == "I10")
 
 rum21$rum %>% filter(dp == "I10") %>%
   mutate(moissor = format(d8soue,"%m")  )%>%
@@ -96,6 +96,8 @@ rum21$rum %>% dplyr::filter(dp == "I10") %>%
   mutate(moissor = format(d8soue,"%m")  ) %>%
   group_by(moissor) %>%
   summarise(nb = n())
+
+
 
 # Création d'un tableau avec les dates de séjours
 dates_sejours <- rum21$rum %>% 

@@ -83,6 +83,7 @@ Chaque donnée possède un format de base qui permet de stocker l’information.
 - une variable logique oui/non
 
 Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces différentes formes on peut constuituer d'autres types de données unitaires en particulier :
+
 - les dates et datatime qui sont en réalité stockées sous forme numérique qui constue l'écart par rapport à un référentiel (par exemple le nombre de jour qui sépare la date du jour du 1er janvier 1970)
 - les facteurs
 Nous approfondirons ces différentes types au cours du livre.

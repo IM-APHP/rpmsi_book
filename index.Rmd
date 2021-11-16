@@ -12,7 +12,7 @@ documentclass: book
 
 # Bienvenu {.unnumbered}
 
-Les premier chapitres du livre sont une compiltation/traduction de livres numériques que nous vous conseillons de lire pour aller plus loin :
+Les premiers chapitres du livre sont une compiltation/traduction de livres numériques que nous vous conseillons de lire pour aller plus loin :
 
 -   [R for Data Science](https://r4ds.had.co.nz/)
 -   [Advanced R](https://adv-r.hadley.nz)
