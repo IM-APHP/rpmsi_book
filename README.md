@@ -6,3 +6,4 @@ Une gentille introduction à l'analyse des données PMSI avec R en utilisant les
 -   [referime](https://github.com/NamikTaright/referime)
 -   [tidyverse](https://www.tidyverse.org/) ([R for Data Science](https://r4ds.had.co.nz/))
 
+Rendez vous sur : [https://im-aphp.github.io/rpmsi_book/](https://im-aphp.github.io/rpmsi_book/) .
