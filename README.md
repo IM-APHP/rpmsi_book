@@ -1,13 +1,8 @@
-Welcome! 
+### Rpmsi book
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+Une gentille introduction à l'analyse des données PMSI avec R en utilisant les packages :
 
-This template provides a skeleton file structure that you can edit to create your book. 
+-   [pmeasyr](https://github.com/GuillaumePressiat/pmeasyr) (cf [Traitement des données PMSI avec R](https://guillaumepressiat.github.io/pmeasyr-book/) )
+-   [referime](https://github.com/NamikTaright/referime)
+-   [tidyverse](https://www.tidyverse.org/) ([R for Data Science](https://r4ds.had.co.nz/))
 
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
-
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
