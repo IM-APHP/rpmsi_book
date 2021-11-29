@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
 <li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
 <li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
-<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra-ano"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA &amp; ANO</a></li>
 <li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#table-pmeasyr-des-formats"><i class="fa fa-check"></i><b>4.6</b> Table pmeasyr des formats</a>
 <ul>
 <li class="chapter" data-level="4.6.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.6.1</b> Récupérer des référentiels sur referime</a></li>
@@ -337,8 +337,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-6"><a href="pmeasyr-imports-mco.html#cb65-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">typi =</span> <span class="dv">4</span>,</span>
 <span id="cb65-7"><a href="pmeasyr-imports-mco.html#cb65-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">tolower_names =</span> <span class="cn">TRUE</span> )</span></code></pre></div>
 </div>
-<div id="import-du-fichier-tra" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Import du fichier TRA</h2>
+<div id="import-du-fichier-tra-ano" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Import du fichier TRA &amp; ANO</h2>
 <p>Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.</p>
 <p>Il comprend un lien entre :</p>
 <ul>
@@ -349,9 +349,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>date de sortie du séjour</li>
 </ul>
 <p>L’import se fait en 2 parties : import du fichier avec la fonction <code>itra</code>, ajout des colonnes dans la table des rsa <code>inner_tra</code> .</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="pmeasyr-imports-mco.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">itra</span>(p) <span class="ot">-&gt;</span> tra</span>
-<span id="cb66-2"><a href="pmeasyr-imports-mco.html#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="pmeasyr-imports-mco.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_tra</span>(rsa15<span class="sc">$</span>rsa, tra) <span class="ot">-&gt;</span> rsa15<span class="sc">$</span>rsa</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="pmeasyr-imports-mco.html#cb66-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">itra</span>(p) <span class="ot">-&gt;</span> tra</span>
+<span id="cb66-2"><a href="pmeasyr-imports-mco.html#cb66-2" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">iano_mco</span>(p) <span class="ot">-&gt;</span> rsa_ano </span>
+<span id="cb66-3"><a href="pmeasyr-imports-mco.html#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="pmeasyr-imports-mco.html#cb66-4" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">inner_tra</span>(rsa15<span class="sc">$</span>rsa, tra) <span class="ot">-&gt;</span> rsa15<span class="sc">$</span>rsa</span>
+<span id="cb66-5"><a href="pmeasyr-imports-mco.html#cb66-5" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">inner_tra</span>(rsa_ano, tra) <span class="ot">-&gt;</span> rsa_ano</span></code></pre></div>
 </div>
 <div id="table-pmeasyr-des-formats" class="section level2" number="4.6">
 <h2><span class="header-section-number">4.6</span> Table pmeasyr des formats</h2>
@@ -378,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-7"><a href="pmeasyr-imports-mco.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(x)</span>
 <span id="cb70-8"><a href="pmeasyr-imports-mco.html#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-9"><a href="pmeasyr-imports-mco.html#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(x))</span></code></pre></div>
-<p>Mise en application pour compter le nombre d’année disponible par champ et par table</p>
+<p>Mise en application pour compter le nombre d’années disponibles par champ et par table</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="pmeasyr-imports-mco.html#cb71-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">group_by</span>(champ,table) <span class="sc">%&gt;%</span> </span>
 <span id="cb71-2"><a href="pmeasyr-imports-mco.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">nb_annee =</span> <span class="fu">length</span>(<span class="fu">unique</span>(an))) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
 <p>NB: on voit qu’un package peut contenir à la fois des fonctions et des jeux de données. C’est le cas ici avec la table <code>formats</code> qui contient des données de parmatrage.</p>
@@ -391,9 +393,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l’UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="pmeasyr-imports-mco.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(referime)</span>
 <span id="cb72-2"><a href="pmeasyr-imports-mco.html#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="pmeasyr-imports-mco.html#cb72-3" aria-hidden="true" tabindex="-1"></a>ium<span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
+<span id="cb72-3"><a href="pmeasyr-imports-mco.html#cb72-3" aria-hidden="true" tabindex="-1"></a>amurm21<span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
 <span id="cb72-4"><a href="pmeasyr-imports-mco.html#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="pmeasyr-imports-mco.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(ium)</span></code></pre></div>
+<span id="cb72-5"><a href="pmeasyr-imports-mco.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(amurm21)</span></code></pre></div>
 <div id="dms-de-la-base-nationale" class="section level4" number="4.6.2.1">
 <h4><span class="header-section-number">4.6.2.1</span> DMS de la base nationale</h4>
 <p>La colonne <code>anseqta</code> contient l’information sur l’année de version du tarif. Elle comprend :</p>
@@ -404,26 +406,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="pmeasyr-imports-mco.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dms base nationales</span></span>
 <span id="cb73-2"><a href="pmeasyr-imports-mco.html#cb73-2" aria-hidden="true" tabindex="-1"></a>dms_nationales <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ghm_dms_nationales&quot;</span>)</span>
 <span id="cb73-3"><a href="pmeasyr-imports-mco.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-4"><a href="pmeasyr-imports-mco.html#cb73-4" aria-hidden="true" tabindex="-1"></a>dms_nationales</span></code></pre></div>
+<span id="cb73-4"><a href="pmeasyr-imports-mco.html#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dms_nationales)</span></code></pre></div>
 <p>Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d’année, pour l’année en cours on se contente d’utiliser les dms calculées sur l’année précédente. Pour cela on utilise la fonction <code>dplyr::bind_rows</code> qui permet de concaténer des dataframes par lignes (sont équivalant par colonne est <code>dplyr::bind_cols</code> ).</p>
 <p>Exemple d’utilisation de</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="pmeasyr-imports-mco.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exemple de fusion de 2 jeux de données qui n&#39;ont pas les mêmes colonnes</span></span>
 <span id="cb74-2"><a href="pmeasyr-imports-mco.html#cb74-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
 <span id="cb74-3"><a href="pmeasyr-imports-mco.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb74-4"><a href="pmeasyr-imports-mco.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghm) ) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-5"><a href="pmeasyr-imports-mco.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghm ),</span>
+<span id="cb74-5"><a href="pmeasyr-imports-mco.html#cb74-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghm ),</span>
 <span id="cb74-6"><a href="pmeasyr-imports-mco.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb74-7"><a href="pmeasyr-imports-mco.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghs) ) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-8"><a href="pmeasyr-imports-mco.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghs )</span>
+<span id="cb74-7"><a href="pmeasyr-imports-mco.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghs), ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-8"><a href="pmeasyr-imports-mco.html#cb74-8" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghs )</span>
 <span id="cb74-9"><a href="pmeasyr-imports-mco.html#cb74-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb74-10"><a href="pmeasyr-imports-mco.html#cb74-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> test</span>
+<span id="cb74-10"><a href="pmeasyr-imports-mco.html#cb74-10" aria-hidden="true" tabindex="-1"></a>) <span class="ot">-&gt;</span> test</span>
 <span id="cb74-11"><a href="pmeasyr-imports-mco.html#cb74-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb74-12"><a href="pmeasyr-imports-mco.html#cb74-12" aria-hidden="true" tabindex="-1"></a>test</span>
 <span id="cb74-13"><a href="pmeasyr-imports-mco.html#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-14"><a href="pmeasyr-imports-mco.html#cb74-14" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">fitler</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghm))</span>
+<span id="cb74-14"><a href="pmeasyr-imports-mco.html#cb74-14" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghm))</span>
 <span id="cb74-15"><a href="pmeasyr-imports-mco.html#cb74-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb74-16"><a href="pmeasyr-imports-mco.html#cb74-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-17"><a href="pmeasyr-imports-mco.html#cb74-17" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">fitler</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghs))</span></code></pre></div>
+<span id="cb74-17"><a href="pmeasyr-imports-mco.html#cb74-17" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghs))</span></code></pre></div>
 <p>Application pour créer une table de référentiel base nationale complète.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="pmeasyr-imports-mco.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2021 pas encore présente dans le fichier, on utilise 2020</span></span>
 <span id="cb75-2"><a href="pmeasyr-imports-mco.html#cb75-2" aria-hidden="true" tabindex="-1"></a>dms_nationales<span class="ot">&lt;-</span> dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -451,13 +453,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Quelques détails sur les foncitons de jointure</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="pmeasyr-imports-mco.html#cb77-1" aria-hidden="true" tabindex="-1"></a>?dplyr<span class="sc">::</span>left_join</span></code></pre></div>
 <p>Nous utilsons les fonctions de jointure pour fusionner les tables ano, rsa, rum et amurm sans déclarer les colonnes qui permettront la jointure dans le <code>by</code>.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="pmeasyr-imports-mco.html#cb78-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> rsa21<span class="sc">$</span>ano <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
-<span id="cb78-2"><a href="pmeasyr-imports-mco.html#cb78-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">inner_join</span>( .,</span>
-<span id="cb78-3"><a href="pmeasyr-imports-mco.html#cb78-3" aria-hidden="true" tabindex="-1"></a>                       rsa21<span class="sc">$</span>rsa <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,</span>
-<span id="cb78-4"><a href="pmeasyr-imports-mco.html#cb78-4" aria-hidden="true" tabindex="-1"></a>                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) </span>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="pmeasyr-imports-mco.html#cb78-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> rsa_ano <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="pmeasyr-imports-mco.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>( .,</span>
+<span id="cb78-3"><a href="pmeasyr-imports-mco.html#cb78-3" aria-hidden="true" tabindex="-1"></a>                     rsa21<span class="sc">$</span>rsa <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,</span>
+<span id="cb78-4"><a href="pmeasyr-imports-mco.html#cb78-4" aria-hidden="true" tabindex="-1"></a>                                                 agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) </span>
 <span id="cb78-5"><a href="pmeasyr-imports-mco.html#cb78-5" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
-<span id="cb78-6"><a href="pmeasyr-imports-mco.html#cb78-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
-<span id="cb78-7"><a href="pmeasyr-imports-mco.html#cb78-7" aria-hidden="true" tabindex="-1"></a>                     rum21<span class="sc">$</span>rum )</span></code></pre></div>
+<span id="cb78-6"><a href="pmeasyr-imports-mco.html#cb78-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb78-7"><a href="pmeasyr-imports-mco.html#cb78-7" aria-hidden="true" tabindex="-1"></a>                    rum21<span class="sc">$</span>rum )</span></code></pre></div>
 <p>Danslce fichier <code>amurm</code> les UMA entité juridique sont dénommées <code>uma_ej</code> alors que dans le nom de cette variable importée avec <code>pmeasyr</code> est <code>cdurm</code> . On change le nom de la variable avant la fusion des tables.</p>
 <p>Par ailleurs comme on souhaite une seule ligne par UMA on procède à un déboulonnage. On utilise ici la fonction <code>dplyr::distinct</code></p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="pmeasyr-imports-mco.html#cb79-1" aria-hidden="true" tabindex="-1"></a>amurm21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
@@ -469,31 +471,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>On utilise cette nouvelle table dans la jointure, en ne slectionnant que les colonnes qui nous interessent</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="pmeasyr-imports-mco.html#cb81-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
 <span id="cb81-2"><a href="pmeasyr-imports-mco.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
-<span id="cb81-3"><a href="pmeasyr-imports-mco.html#cb81-3" aria-hidden="true" tabindex="-1"></a>                   amurm21 <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
-<span id="cb81-4"><a href="pmeasyr-imports-mco.html#cb81-4" aria-hidden="true" tabindex="-1"></a>                     dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb81-5"><a href="pmeasyr-imports-mco.html#cb81-5" aria-hidden="true" tabindex="-1"></a>                     dplyr<span class="sc">::</span><span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, </span>
-<span id="cb81-6"><a href="pmeasyr-imports-mco.html#cb81-6" aria-hidden="true" tabindex="-1"></a>                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) </span></code></pre></div>
+<span id="cb81-3"><a href="pmeasyr-imports-mco.html#cb81-3" aria-hidden="true" tabindex="-1"></a>                    amurm21 <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb81-4"><a href="pmeasyr-imports-mco.html#cb81-4" aria-hidden="true" tabindex="-1"></a>                      dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb81-5"><a href="pmeasyr-imports-mco.html#cb81-5" aria-hidden="true" tabindex="-1"></a>                      dplyr<span class="sc">::</span><span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, </span>
+<span id="cb81-6"><a href="pmeasyr-imports-mco.html#cb81-6" aria-hidden="true" tabindex="-1"></a>                                     lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) </span></code></pre></div>
 <p><strong>Ajout des dms dans la base nationale</strong> : Attention jointure complexe car les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas également au niveau GHM (soins pallialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes :</p>
 <ul>
 <li>table intermédaire 1 résultat de l’appariement des rum avec la table de référence sur le GHM</li>
 <li>table intermédaire 2 résultat de l’appariement des rum avec la table de référence sur le GHS</li>
 <li>ajout des séjours n’appartenant à aucune des 2 tables ci dessus</li>
 </ul>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="pmeasyr-imports-mco.html#cb82-1" aria-hidden="true" tabindex="-1"></a>data21<span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df))</span>
-<span id="cb82-2"><a href="pmeasyr-imports-mco.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="pmeasyr-imports-mco.html#cb82-3" aria-hidden="true" tabindex="-1"></a>data21_dms1<span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">inner_join</span>(data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
-<span id="cb82-4"><a href="pmeasyr-imports-mco.html#cb82-4" aria-hidden="true" tabindex="-1"></a>                                dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghs,<span class="at">.keep_all =</span> T) </span>
-<span id="cb82-5"><a href="pmeasyr-imports-mco.html#cb82-5" aria-hidden="true" tabindex="-1"></a>                                )</span>
-<span id="cb82-6"><a href="pmeasyr-imports-mco.html#cb82-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-7"><a href="pmeasyr-imports-mco.html#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
-<span id="cb82-8"><a href="pmeasyr-imports-mco.html#cb82-8" aria-hidden="true" tabindex="-1"></a>data21_dms2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
-<span id="cb82-9"><a href="pmeasyr-imports-mco.html#cb82-9" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ghs) <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghm,<span class="at">.keep_all =</span> T)  )</span>
-<span id="cb82-10"><a href="pmeasyr-imports-mco.html#cb82-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-11"><a href="pmeasyr-imports-mco.html#cb82-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-12"><a href="pmeasyr-imports-mco.html#cb82-12" aria-hidden="true" tabindex="-1"></a>data21_2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_dms1,data21_dms2)</span>
-<span id="cb82-13"><a href="pmeasyr-imports-mco.html#cb82-13" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_2, data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span> id <span class="sc">%in%</span> <span class="fu">c</span>(data21_dms1<span class="sc">$</span>id,data21_dms2<span class="sc">$</span>id) ) )</span>
-<span id="cb82-14"><a href="pmeasyr-imports-mco.html#cb82-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-15"><a href="pmeasyr-imports-mco.html#cb82-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(data21_dms1,data21_dms2,data21_2) </span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="pmeasyr-imports-mco.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ajout d&#39;une indicatrice pour repréer les lignes de la table iniatale</span></span>
+<span id="cb82-2"><a href="pmeasyr-imports-mco.html#cb82-2" aria-hidden="true" tabindex="-1"></a>data21<span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data21))</span>
+<span id="cb82-3"><a href="pmeasyr-imports-mco.html#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="pmeasyr-imports-mco.html#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
+<span id="cb82-5"><a href="pmeasyr-imports-mco.html#cb82-5" aria-hidden="true" tabindex="-1"></a>data21_dms1<span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">inner_join</span>(data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb82-6"><a href="pmeasyr-imports-mco.html#cb82-6" aria-hidden="true" tabindex="-1"></a>                                dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghs)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghs,<span class="at">.keep_all =</span> T) </span>
+<span id="cb82-7"><a href="pmeasyr-imports-mco.html#cb82-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb82-8"><a href="pmeasyr-imports-mco.html#cb82-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-9"><a href="pmeasyr-imports-mco.html#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
+<span id="cb82-10"><a href="pmeasyr-imports-mco.html#cb82-10" aria-hidden="true" tabindex="-1"></a>data21_dms2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb82-11"><a href="pmeasyr-imports-mco.html#cb82-11" aria-hidden="true" tabindex="-1"></a>                        dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ghs) <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghm,<span class="at">.keep_all =</span> T)  )</span>
+<span id="cb82-12"><a href="pmeasyr-imports-mco.html#cb82-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-13"><a href="pmeasyr-imports-mco.html#cb82-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-14"><a href="pmeasyr-imports-mco.html#cb82-14" aria-hidden="true" tabindex="-1"></a>data21_2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_dms1,data21_dms2)</span>
+<span id="cb82-15"><a href="pmeasyr-imports-mco.html#cb82-15" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_2, data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span> id <span class="sc">%in%</span> <span class="fu">c</span>(data21_dms1<span class="sc">$</span>id,data21_dms2<span class="sc">$</span>id) ) )</span>
+<span id="cb82-16"><a href="pmeasyr-imports-mco.html#cb82-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-17"><a href="pmeasyr-imports-mco.html#cb82-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(data21_dms1,data21_dms2,data21_2) </span></code></pre></div>
 
 </div>
 </div>

@@ -2,6 +2,7 @@
 
 # Définir le chemin générique des données
 path_data = 'path/to/your/data/folder'
+path_data = 'C:/Users/3056269/Documents/data/mco'
 
 #Création d'un noyau de paramètres pmeasyr
 p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
@@ -14,7 +15,7 @@ p<-pmeasyr::noyau_pmeasyr(finess = 750712184,
 
 #Dizappge des fichiers out
 pmeasyr::adezip(p,
-                liste = c("rsa","tra"), 
+                liste = c("rsa","tra","ano"), 
                 type = "out")
 
 
@@ -35,12 +36,14 @@ rum21<- pmeasyr::irum(p,
              typi = 4 )
 
 
+#Import du fichier ano
+rsa_ano <- pmeasyr::iano_mco(p)
 
 #Import du TRA et ajout des infos établissements sur les rsa
 pmeasyr::itra(p) -> tra
 
 pmeasyr::inner_tra(rsa21$rsa, tra) -> rsa21$rsa
-
+pmeasyr::inner_tra(rsa_ano, tra) -> rsa_ano
 
 
 
@@ -50,7 +53,7 @@ pmeasyr::formats
 pmeasyr::formats %>% View()
 
 # Liste des variables pour la table RSA en 2021
-pmeasyr::formats %>% dplyr::filter(table == rsa, an == 21)
+pmeasyr::formats %>% dplyr::filter(table == "rsa", an == 21)%>% View()
 
 
 # Le TRA dans les différents champs et les différentes années 
@@ -70,16 +73,16 @@ length(unique(x))
 
 # Nombre d'années disponibles pour chaucn des champs avec visablisation du noms des tables importables
 pmeasyr::formats %>% dplyr::group_by(champ,table) %>% 
-  dplyr::mutate(nb_annee = length(unique(an))) %>% View()
+  dplyr::summarise(nb_annee = length(unique(an))) %>% View()
 
 
 #Récupérer des données avec référime
 
 library(referime)
 
-ium<- referime::get_table("amurm_2021")
+amurm21<- referime::get_table("amurm_2021")
 
-View(ium)
+View(amurm21)
 
 
 
@@ -97,17 +100,17 @@ dplyr::bind_rows(
   dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghm) ) %>% 
     dplyr::select( anseqta, dms_n, ghm ),
   
-  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghs) ) %>% 
+  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghs), ghs!="" ) %>% 
     dplyr::select( anseqta, dms_n, ghs )
   
 ) -> test
 
 test
 
-test %>% dplyr::fitler(!is.na(ghm))
+test %>% dplyr::filter(!is.na(ghm))
 
 
-test %>% dplyr::fitler(!is.na(ghs))
+test %>% dplyr::filter(!is.na(ghs))
 
 #2021 pas encore présente dans le fichier, on utilise 2020
 dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
@@ -119,13 +122,13 @@ dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
 
 #Actes CCAM : icr, actes chriurgicaux
 icr <- referime::get_table("ccam_icr") %>% filter(activite  == 1)
-rgp <- referime::get_table("ccam_regroupement") %>% filter(activite  == 1, regroupement == "ADC")
+ccam_rgp <- referime::get_table("ccam_regroupement") %>% filter(activite  == 1, regroupement == "ADC")
 acte_chir <- rgp %>% select(code) %>% inner_join(icr, by = c("code"))
 cim <- referime::get_table("cim") %>%
   dplyr::distinct(code,.keep_all = TRUE) %>%
   dplyr::select(code,lib_court)
 #Regroupements GHM
-regroupement <- referime::get_table('ghm_ghm_regroupement')
+ghm_rgp <- referime::get_table('ghm_ghm_regroupement')
 
 
 # Les jointures
@@ -134,7 +137,7 @@ regroupement <- referime::get_table('ghm_ghm_regroupement')
 
 
 #joiture ano,rsa,rum
-data21 <- rsa21$ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
+data21 <- rsa_ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
   dplyr::inner_join( .,
                      rsa21$rsa %>% dplyr::select(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,
                                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) 
@@ -165,7 +168,7 @@ data21 <- data21 %>%
 
 #Ajout des DMS de référence
 
-data21<- data21 %>% dplyr::mutate(id = 1:nrow(df))
+data21<- data21 %>% dplyr::mutate(id = 1:nrow(data21))
 
 data21_dms1<- dplyr::inner_join(data21 %>% dplyr::rename(ghs = noghs),
                                 dms_nationales %>% dplyr::filter(ghs!="") %>% dplyr::distinct(anseqta,ghs,.keep_all = T) 

@@ -56,7 +56,7 @@ x %>% + 5 %>% -3
 
 
 
-#Dézippage des RUM
+#Dézippage des RUM groupés (nommés RSS dans les outils ATIH)
 pmeasyr::adezip(finess = 750712184, 
                 annee = 2021, 
                 mois = 8, 
@@ -65,7 +65,7 @@ pmeasyr::adezip(finess = 750712184,
                 type = "in")
 
 
-#Import des RSS
+#Import des RUM groupés (nommés RSS dans les outils ATIH)
 pmeasyr::irum(finess = 750712184, 
               annee = 2021, 
               mois = 8, 
@@ -105,7 +105,7 @@ rum21$rum %>% dplyr::filter(dp == "I10") %>%
   left_join(.,dates_sejours) %>%
   mutate(moissor = format(dtsor,"%m")  ) %>%
   group_by(moissor) %>%
-  summarise(nb = length(unique(nas)))
+  summarise(nb = n())
 
 #Rechercher I10 dans les DAS
 rum21$das %>% dplyr::filter(das == "I10") -> das_i10

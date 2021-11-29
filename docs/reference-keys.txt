@@ -14,7 +14,7 @@ les-différents-fichiers-à-importer
 noyau-pmeasyr
 imports-des-rsa
 import-des-rum
-import-du-fichier-tra
+import-du-fichier-tra-ano
 table-pmeasyr-des-formats
 récupérer-des-référentiels-sur-referime
 fichier-descriptif-des-uma-sur-referime

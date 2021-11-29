@@ -79,7 +79,7 @@ rum21<- pmeasyr::irum(p,
 ```
 
 
-## Import du fichier TRA
+## Import du fichier TRA & ANO
 
 Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.
 
@@ -94,9 +94,11 @@ Il comprend un lien entre :
 L'import se fait en 2 parties : import du fichier avec la fonction ```itra```, ajout des colonnes dans la table des rsa ```inner_tra``` .
 
 ```r
-itra(p) -> tra
+pmeasyr::itra(p) -> tra
+pmeasyr::iano_mco(p) -> rsa_ano 
 
-inner_tra(rsa15$rsa, tra) -> rsa15$rsa
+pmeasyr::inner_tra(rsa15$rsa, tra) -> rsa15$rsa
+pmeasyr::inner_tra(rsa_ano, tra) -> rsa_ano
 ```
 
 
@@ -146,7 +148,7 @@ length(unique(x))
 ```
 
 
-Mise en application pour compter le nombre d'année disponible par champ et par table
+Mise en application pour compter le nombre d'années disponibles par champ et par table
 
 ```r
 pmeasyr::formats %>% dplyr::group_by(champ,table) %>% 
@@ -167,9 +169,9 @@ Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses don
 ```r
 library(referime)
 
-ium<- referime::get_table("amurm_2021")
+amurm21<- referime::get_table("amurm_2021")
 
-View(ium)
+View(amurm21)
 ```
 
 
@@ -188,7 +190,7 @@ La colonne ```anseqta``` contient l'information sur l'année de version du tarif
 #dms base nationales
 dms_nationales <- referime::get_table("ghm_dms_nationales")
 
-dms_nationales
+View(dms_nationales)
 ```
 
 Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d'année, pour l'année en cours on se contente d'utiliser les dms calculées sur l'année précédente. Pour cela on utilise la fonction ```dplyr::bind_rows``` qui permet de concaténer des dataframes par lignes (sont équivalant par colonne est ```dplyr::bind_cols``` ).
@@ -201,19 +203,19 @@ Exemple d'utilisation de
 dplyr::bind_rows(
   
   dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghm) ) %>% 
-  dplyr::select( anseqta, dms_n, ghm ),
+    dplyr::select( anseqta, dms_n, ghm ),
   
-  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghs) ) %>% 
-  dplyr::select( anseqta, dms_n, ghs )
+  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghs), ghs!="" ) %>% 
+    dplyr::select( anseqta, dms_n, ghs )
   
-  ) -> test
+) -> test
 
 test
 
-test %>% dplyr::fitler(!is.na(ghm))
+test %>% dplyr::filter(!is.na(ghm))
 
 
-test %>% dplyr::fitler(!is.na(ghs))
+test %>% dplyr::filter(!is.na(ghs))
 ```
 
 Application pour créer une table de référentiel base nationale complète.
@@ -259,13 +261,13 @@ Quelques détails sur les foncitons de jointure
 Nous utilsons les fonctions de jointure pour fusionner les tables ano, rsa, rum et amurm sans déclarer les colonnes qui permettront la jointure dans le ```by```.
 
 ```r
-data21 <- rsa21$ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
-    dplyr::inner_join( .,
-                       rsa21$rsa %>% dplyr::select(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,
-                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) 
+data21 <- rsa_ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
+  dplyr::inner_join( .,
+                     rsa21$rsa %>% dplyr::select(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,
+                                                 agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) 
 data21 <- data21 %>%
-    dplyr::left_join( .,
-                     rum21$rum )
+  dplyr::left_join( .,
+                    rum21$rum )
 ```
 
 Danslce fichier  ```amurm``` les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` . On change le nom de la variable avant la fusion des tables.
@@ -292,10 +294,10 @@ On utilise cette nouvelle table dans la jointure, en ne slectionnant que les col
 ```r
 data21 <- data21 %>%
   dplyr::left_join( .,
-                   amurm21 %>%  dplyr::rename(cdurm = uma_ej) %>%
-                     dplyr::distinct(cdurm,.keep_all = T) %>%
-                     dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, 
-                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) 
+                    amurm21 %>%  dplyr::rename(cdurm = uma_ej) %>%
+                      dplyr::distinct(cdurm,.keep_all = T) %>%
+                      dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, 
+                                     lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) 
 ```
 
 **Ajout des dms dans la base nationale** : Attention jointure complexe car les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas également au niveau GHM (soins pallialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes :
@@ -307,15 +309,17 @@ data21 <- data21 %>%
 
 
 ```r
-data21<- data21 %>% dplyr::mutate(id = 1:nrow(df))
+#ajout d'une indicatrice pour repréer les lignes de la table iniatale
+data21<- data21 %>% dplyr::mutate(id = 1:nrow(data21))
 
+#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm
 data21_dms1<- dplyr::inner_join(data21 %>% dplyr::rename(ghs = noghs),
-                                dms_nationales %>% dplyr::filter(ghs!="") %>% dplyr::distinct(anseqta,ghs,.keep_all = T) 
-                                )
+                                dms_nationales %>% dplyr::filter(ghs!="", !is.na(ghs)) %>% dplyr::distinct(anseqta,ghs,.keep_all = T) 
+)
 
 #Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm
 data21_dms2<-inner_join(data21%>%rename(ghs = noghs),
-                    dms_nationales%>%filter(ghs=="") %>% dplyr::select(-ghs) %>%  dplyr::distinct(anseqta,ghm,.keep_all = T)  )
+                        dms_nationales%>%filter(ghs=="") %>% dplyr::select(-ghs) %>%  dplyr::distinct(anseqta,ghm,.keep_all = T)  )
 
 
 data21_2 <- dplyr::bind_rows(data21_dms1,data21_dms2)
