@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 pmeasyr : Imports MCO | Analyser les données PMSI avec R</title>
   <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 pmeasyr : Imports MCO | Analyser les données PMSI avec R" />
   <meta property="og:type" content="book" />
@@ -160,12 +160,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
 <li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
 <li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
-<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a></li>
+<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#table-pmeasyr-des-formats"><i class="fa fa-check"></i><b>4.6</b> Table pmeasyr des formats</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.5.1</b> Récupérer des référentiels sur referime</a></li>
-<li class="chapter" data-level="4.5.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.5.2</b> Fichier descriptif des UMA sur referime</a></li>
+<li class="chapter" data-level="4.6.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.6.1</b> Récupérer des référentiels sur referime</a></li>
+<li class="chapter" data-level="4.6.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.6.2</b> Fichier descriptif des UMA sur referime</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.6</b> Création d’une table contenant la plus part des informations utiles</a></li>
+<li class="chapter" data-level="4.7" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.7</b> Création d’une table contenant la plus part des informations utiles</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -241,11 +242,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="noyau-pmeasyr" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Noyau pmeasyr</h2>
-<p>Comme les différents paramaères de l’import que nous avons vu au chapitre précéndents sont réutilisés plusieurs fois, nous pouvons créer un objet pmeasyr destiné à stocker toutes ces informarions, appelé, noyau :</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="pmeasyr-imports-mco.html#cb63-1" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span>pmeasyr<span class="sc">::</span><span class="fu">noyau_pmeasyr</span>(<span class="at">finess =</span> <span class="dv">750712184</span>, </span>
-<span id="cb63-2"><a href="pmeasyr-imports-mco.html#cb63-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">annee =</span> <span class="dv">2021</span>, </span>
-<span id="cb63-3"><a href="pmeasyr-imports-mco.html#cb63-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">mois =</span> <span class="dv">8</span>, </span>
-<span id="cb63-4"><a href="pmeasyr-imports-mco.html#cb63-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">path =</span> <span class="st">&#39;C:/Users/3056269/Documents/data/mco&#39;</span>)</span></code></pre></div>
+<p>Comme les différents paramètres permettant à <code>pmeasyr</code> de réaliser l’import (et en particulier de retrouver le bon fichier zipper sur le disque) sont réutilisés plusieurs fois, nous pouvons créer un objet <code>pmeasyr</code> destiné à stocker toutes ces informarions, appelé, noyau :</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="pmeasyr-imports-mco.html#cb63-1" aria-hidden="true" tabindex="-1"></a>path_data <span class="ot">=</span> <span class="st">&#39;path/to/your/data/folder&#39;</span></span>
+<span id="cb63-2"><a href="pmeasyr-imports-mco.html#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="pmeasyr-imports-mco.html#cb63-3" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span>pmeasyr<span class="sc">::</span><span class="fu">noyau_pmeasyr</span>(<span class="at">finess =</span> <span class="dv">750712184</span>, </span>
+<span id="cb63-4"><a href="pmeasyr-imports-mco.html#cb63-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">annee =</span> <span class="dv">2021</span>, </span>
+<span id="cb63-5"><a href="pmeasyr-imports-mco.html#cb63-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">mois =</span> <span class="dv">8</span>, </span>
+<span id="cb63-6"><a href="pmeasyr-imports-mco.html#cb63-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">path =</span> path_data,</span>
+<span id="cb63-7"><a href="pmeasyr-imports-mco.html#cb63-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">tolower_names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="imports-des-rsa" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Imports des RSA</h2>
@@ -287,9 +291,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="pmeasyr-imports-mco.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ira</span>(p,</span>
-<span id="cb64-2"><a href="pmeasyr-imports-mco.html#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">typi =</span> <span class="dv">4</span>,</span>
-<span id="cb64-3"><a href="pmeasyr-imports-mco.html#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tolower_names =</span> <span class="cn">TRUE</span> ) <span class="ot">-&gt;</span> rsa21</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="pmeasyr-imports-mco.html#cb64-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">adezip</span>(p,</span>
+<span id="cb64-2"><a href="pmeasyr-imports-mco.html#cb64-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">liste =</span> <span class="fu">c</span>(<span class="st">&quot;rsa&quot;</span>,<span class="st">&quot;tra&quot;</span>), </span>
+<span id="cb64-3"><a href="pmeasyr-imports-mco.html#cb64-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;out&quot;</span>)</span>
+<span id="cb64-4"><a href="pmeasyr-imports-mco.html#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="pmeasyr-imports-mco.html#cb64-5" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">irsa</span>(p,</span>
+<span id="cb64-6"><a href="pmeasyr-imports-mco.html#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">typi =</span> <span class="dv">4</span>,</span>
+<span id="cb64-7"><a href="pmeasyr-imports-mco.html#cb64-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">tolower_names =</span> <span class="cn">TRUE</span> ) <span class="ot">-&gt;</span> rsa21</span></code></pre></div>
 </div>
 <div id="import-des-rum" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Import des RUM</h2>
@@ -319,98 +327,171 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="pmeasyr-imports-mco.html#cb65-1" aria-hidden="true" tabindex="-1"></a>rum21<span class="ot">&lt;-</span> <span class="fu">irum</span>(p,</span>
-<span id="cb65-2"><a href="pmeasyr-imports-mco.html#cb65-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">typi =</span> <span class="dv">4</span>,</span>
-<span id="cb65-3"><a href="pmeasyr-imports-mco.html#cb65-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">tolower_names =</span> <span class="cn">TRUE</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="pmeasyr-imports-mco.html#cb65-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">adezip</span>(p,</span>
+<span id="cb65-2"><a href="pmeasyr-imports-mco.html#cb65-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">liste =</span> <span class="fu">c</span>(<span class="st">&quot;rss&quot;</span>), </span>
+<span id="cb65-3"><a href="pmeasyr-imports-mco.html#cb65-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;in&quot;</span>)</span>
+<span id="cb65-4"><a href="pmeasyr-imports-mco.html#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="pmeasyr-imports-mco.html#cb65-5" aria-hidden="true" tabindex="-1"></a>rum21<span class="ot">&lt;-</span> pmeasyr<span class="sc">::</span><span class="fu">irum</span>(p,</span>
+<span id="cb65-6"><a href="pmeasyr-imports-mco.html#cb65-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">typi =</span> <span class="dv">4</span>,</span>
+<span id="cb65-7"><a href="pmeasyr-imports-mco.html#cb65-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">tolower_names =</span> <span class="cn">TRUE</span> )</span></code></pre></div>
 </div>
 <div id="import-du-fichier-tra" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Import du fichier TRA</h2>
 <p>Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.</p>
-<p>Il comprend un lien entre :
-- clé rsa,
-- numéro de rss,
-- numéro de sejour (nas),
-- date d’entrée
-- date de sortie du séjour</p>
+<p>Il comprend un lien entre :</p>
+<ul>
+<li>clé rsa,</li>
+<li>numéro de rss,</li>
+<li>numéro de sejour (nas),</li>
+<li>date d’entrée</li>
+<li>date de sortie du séjour</li>
+</ul>
 <p>L’import se fait en 2 parties : import du fichier avec la fonction <code>itra</code>, ajout des colonnes dans la table des rsa <code>inner_tra</code> .</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="pmeasyr-imports-mco.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">itra</span>(p) <span class="ot">-&gt;</span> tra</span>
 <span id="cb66-2"><a href="pmeasyr-imports-mco.html#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-3"><a href="pmeasyr-imports-mco.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_tra</span>(rsa15<span class="sc">$</span>rsa, tra) <span class="ot">-&gt;</span> rsa15<span class="sc">$</span>rsa</span></code></pre></div>
-<div id="récupérer-des-référentiels-sur-referime" class="section level3" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> Récupérer des référentiels sur referime</h3>
-<p>Le package <a href="https://github.com/NamikTaright/referime">referime</a> maintenu par Namik Taright alimente le serveur de référentiels du DIM de l’AP-HP. Il est la base d’un webservice utilisé par différents entité de l’institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l’analyse des données PMSI.</p>
 </div>
-<div id="fichier-descriptif-des-uma-sur-referime" class="section level3" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> Fichier descriptif des UMA sur referime</h3>
-<p>Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l’UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieur ligne pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées <code>uma_ej</code> alors que dans le nom de cette variable importée avec <code>pmeasyr</code> est <code>cdurm</code> .</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="pmeasyr-imports-mco.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(referime)</span>
+<div id="table-pmeasyr-des-formats" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Table pmeasyr des formats</h2>
+<p>Les fonctions d’import de <code>pmeasyr</code> utilisent les formats officiels défini par l’ATIH pour constituer les fichiers qui seront mis en entrées et sortie des logiciels développés par l’agence et qui permettront l’échange de données (<a href="https://www.atih.sante.fr/formats-pmsi-2021">formats officiels</a> des données en entrée des logiciels permettant la transmission).</p>
+<p>C’est format sont stockés dans le package sous la forme d’un table de format accèssible aux utilisateurs</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="pmeasyr-imports-mco.html#cb67-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats </span>
 <span id="cb67-2"><a href="pmeasyr-imports-mco.html#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="pmeasyr-imports-mco.html#cb67-3" aria-hidden="true" tabindex="-1"></a>ium<span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
-<span id="cb67-4"><a href="pmeasyr-imports-mco.html#cb67-4" aria-hidden="true" tabindex="-1"></a>ium <span class="ot">&lt;-</span> ium <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
-<span id="cb67-5"><a href="pmeasyr-imports-mco.html#cb67-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T)</span></code></pre></div>
-<div id="dms-de-la-base-nationale" class="section level4" number="4.5.2.1">
-<h4><span class="header-section-number">4.5.2.1</span> DMS de la base nationale</h4>
+<span id="cb67-3"><a href="pmeasyr-imports-mco.html#cb67-3" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
+<p>La fonction <code>View()</code> permet d’accéder à un visionneur de code</p>
+<p><strong>Liste des variables pour la table RSA en 2021</strong></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="pmeasyr-imports-mco.html#cb68-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(table <span class="sc">==</span> rsa, an <span class="sc">==</span> <span class="dv">21</span>)</span></code></pre></div>
+<p><strong>Le TRA dans les différents champs et les différentes années </strong></p>
+<p>Remarquez l’utilisation de la fonction <code>dplyr::n()</code> qui permet de compter le nombre de ligne dans un dataframe</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="pmeasyr-imports-mco.html#cb69-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(table <span class="sc">==</span> <span class="st">&quot;tra&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="pmeasyr-imports-mco.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(champ,an) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">nb =</span> dplyr<span class="sc">::</span><span class="fu">n</span>() ) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
+<p><strong>Nombre d’années disponibles pour chaucn des champs avec visablisation du noms des tables importables</strong></p>
+<p>Pour compter le nombre d’éléments distinct dans un vecteur, on utilise les fonctions <code>length()</code> et <code>unique()</code> .</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="pmeasyr-imports-mco.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#exemple length(unique(x))</span></span>
+<span id="cb70-2"><a href="pmeasyr-imports-mco.html#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="pmeasyr-imports-mco.html#cb70-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>)</span>
+<span id="cb70-4"><a href="pmeasyr-imports-mco.html#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="pmeasyr-imports-mco.html#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span>
+<span id="cb70-6"><a href="pmeasyr-imports-mco.html#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="pmeasyr-imports-mco.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(x)</span>
+<span id="cb70-8"><a href="pmeasyr-imports-mco.html#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="pmeasyr-imports-mco.html#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(x))</span></code></pre></div>
+<p>Mise en application pour compter le nombre d’année disponible par champ et par table</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="pmeasyr-imports-mco.html#cb71-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span>formats <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">group_by</span>(champ,table) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="pmeasyr-imports-mco.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">nb_annee =</span> <span class="fu">length</span>(<span class="fu">unique</span>(an))) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
+<p>NB: on voit qu’un package peut contenir à la fois des fonctions et des jeux de données. C’est le cas ici avec la table <code>formats</code> qui contient des données de parmatrage.</p>
+<div id="récupérer-des-référentiels-sur-referime" class="section level3" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Récupérer des référentiels sur referime</h3>
+<p>Le package <a href="https://github.com/NamikTaright/referime">referime</a> maintenu par Namik Taright alimente le serveur de référentiels du DIM de l’AP-HP. Il est à la base d’un webservice utilisé par différents entités de l’institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l’analyse des données PMSI.</p>
+</div>
+<div id="fichier-descriptif-des-uma-sur-referime" class="section level3" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> Fichier descriptif des UMA sur referime</h3>
+<p>Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l’UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="pmeasyr-imports-mco.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(referime)</span>
+<span id="cb72-2"><a href="pmeasyr-imports-mco.html#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="pmeasyr-imports-mco.html#cb72-3" aria-hidden="true" tabindex="-1"></a>ium<span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
+<span id="cb72-4"><a href="pmeasyr-imports-mco.html#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="pmeasyr-imports-mco.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(ium)</span></code></pre></div>
+<div id="dms-de-la-base-nationale" class="section level4" number="4.6.2.1">
+<h4><span class="header-section-number">4.6.2.1</span> DMS de la base nationale</h4>
 <p>La colonne <code>anseqta</code> contient l’information sur l’année de version du tarif. Elle comprend :</p>
 <ul>
 <li>les séjours de l’année n à partir du 1er mars</li>
 <li>les séjours de l’année n+1 jusqu’au 28/29 février</li>
 </ul>
-<p>Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d’année, pour l’année en cours on se contente d’utiliser les dms calculées sur l’année précédente.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="pmeasyr-imports-mco.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dms base nationales</span></span>
-<span id="cb68-2"><a href="pmeasyr-imports-mco.html#cb68-2" aria-hidden="true" tabindex="-1"></a>dms_nationales <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ghm_dms_nationales&quot;</span>)</span>
-<span id="cb68-3"><a href="pmeasyr-imports-mco.html#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="pmeasyr-imports-mco.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co">#2021 pas encore présente dans le fichier, on utilise 2020</span></span>
-<span id="cb68-5"><a href="pmeasyr-imports-mco.html#cb68-5" aria-hidden="true" tabindex="-1"></a>dms_nationales<span class="ot">&lt;-</span> dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb68-6"><a href="pmeasyr-imports-mco.html#cb68-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">anseqta =</span> <span class="st">&quot;2021&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb68-7"><a href="pmeasyr-imports-mco.html#cb68-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(dms_nationales,.)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="pmeasyr-imports-mco.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dms base nationales</span></span>
+<span id="cb73-2"><a href="pmeasyr-imports-mco.html#cb73-2" aria-hidden="true" tabindex="-1"></a>dms_nationales <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ghm_dms_nationales&quot;</span>)</span>
+<span id="cb73-3"><a href="pmeasyr-imports-mco.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="pmeasyr-imports-mco.html#cb73-4" aria-hidden="true" tabindex="-1"></a>dms_nationales</span></code></pre></div>
+<p>Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d’année, pour l’année en cours on se contente d’utiliser les dms calculées sur l’année précédente. Pour cela on utilise la fonction <code>dplyr::bind_rows</code> qui permet de concaténer des dataframes par lignes (sont équivalant par colonne est <code>dplyr::bind_cols</code> ).</p>
+<p>Exemple d’utilisation de</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="pmeasyr-imports-mco.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exemple de fusion de 2 jeux de données qui n&#39;ont pas les mêmes colonnes</span></span>
+<span id="cb74-2"><a href="pmeasyr-imports-mco.html#cb74-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb74-3"><a href="pmeasyr-imports-mco.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-4"><a href="pmeasyr-imports-mco.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghm) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-5"><a href="pmeasyr-imports-mco.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghm ),</span>
+<span id="cb74-6"><a href="pmeasyr-imports-mco.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-7"><a href="pmeasyr-imports-mco.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>( anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>, <span class="sc">!</span><span class="fu">is.na</span>(ghs) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-8"><a href="pmeasyr-imports-mco.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>( anseqta, dms_n, ghs )</span>
+<span id="cb74-9"><a href="pmeasyr-imports-mco.html#cb74-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-10"><a href="pmeasyr-imports-mco.html#cb74-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> test</span>
+<span id="cb74-11"><a href="pmeasyr-imports-mco.html#cb74-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-12"><a href="pmeasyr-imports-mco.html#cb74-12" aria-hidden="true" tabindex="-1"></a>test</span>
+<span id="cb74-13"><a href="pmeasyr-imports-mco.html#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-14"><a href="pmeasyr-imports-mco.html#cb74-14" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">fitler</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghm))</span>
+<span id="cb74-15"><a href="pmeasyr-imports-mco.html#cb74-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-16"><a href="pmeasyr-imports-mco.html#cb74-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-17"><a href="pmeasyr-imports-mco.html#cb74-17" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">fitler</span>(<span class="sc">!</span><span class="fu">is.na</span>(ghs))</span></code></pre></div>
+<p>Application pour créer une table de référentiel base nationale complète.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="pmeasyr-imports-mco.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2021 pas encore présente dans le fichier, on utilise 2020</span></span>
+<span id="cb75-2"><a href="pmeasyr-imports-mco.html#cb75-2" aria-hidden="true" tabindex="-1"></a>dms_nationales<span class="ot">&lt;-</span> dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="pmeasyr-imports-mco.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">anseqta =</span> <span class="st">&quot;2021&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="pmeasyr-imports-mco.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(dms_nationales,.)</span></code></pre></div>
+<p>NB : les fonctions <code>dplyr</code> sont plus souples que les fonctions natives de R et elles tolèrent que les 2 dataframes n’aient pas exactement le même nombre de colonnes. Dans ce cas, elles créent des colonnes vides pour les colones qui pouraient manquer dans l’un des 2 dataframe.</p>
 </div>
-<div id="autres-références-utiles" class="section level4" number="4.5.2.2">
-<h4><span class="header-section-number">4.5.2.2</span> Autres références utiles</h4>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="pmeasyr-imports-mco.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Actes CCAM : icr, actes chriurgicaux</span></span>
-<span id="cb69-2"><a href="pmeasyr-imports-mco.html#cb69-2" aria-hidden="true" tabindex="-1"></a>icr <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_icr&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb69-3"><a href="pmeasyr-imports-mco.html#cb69-3" aria-hidden="true" tabindex="-1"></a>rgp <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_regroupement&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>, regroupement <span class="sc">==</span> <span class="st">&quot;ADC&quot;</span>)</span>
-<span id="cb69-4"><a href="pmeasyr-imports-mco.html#cb69-4" aria-hidden="true" tabindex="-1"></a>acte_chir <span class="ot">&lt;-</span> rgp <span class="sc">%&gt;%</span> <span class="fu">select</span>(code) <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(icr, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;code&quot;</span>))</span>
-<span id="cb69-5"><a href="pmeasyr-imports-mco.html#cb69-5" aria-hidden="true" tabindex="-1"></a>cim <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;cim&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-6"><a href="pmeasyr-imports-mco.html#cb69-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(code,<span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-7"><a href="pmeasyr-imports-mco.html#cb69-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(code,lib_court)</span>
-<span id="cb69-8"><a href="pmeasyr-imports-mco.html#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Regroupements GHM</span></span>
-<span id="cb69-9"><a href="pmeasyr-imports-mco.html#cb69-9" aria-hidden="true" tabindex="-1"></a>regroupement <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&#39;ghm_ghm_regroupement&#39;</span>)</span></code></pre></div>
+<div id="autres-références-utiles" class="section level4" number="4.6.2.2">
+<h4><span class="header-section-number">4.6.2.2</span> Autres références utiles</h4>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="pmeasyr-imports-mco.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Actes CCAM : icr, actes chriurgicaux</span></span>
+<span id="cb76-2"><a href="pmeasyr-imports-mco.html#cb76-2" aria-hidden="true" tabindex="-1"></a>icr <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_icr&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb76-3"><a href="pmeasyr-imports-mco.html#cb76-3" aria-hidden="true" tabindex="-1"></a>rgp <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_regroupement&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>, regroupement <span class="sc">==</span> <span class="st">&quot;ADC&quot;</span>)</span>
+<span id="cb76-4"><a href="pmeasyr-imports-mco.html#cb76-4" aria-hidden="true" tabindex="-1"></a>acte_chir <span class="ot">&lt;-</span> rgp <span class="sc">%&gt;%</span> <span class="fu">select</span>(code) <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(icr, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;code&quot;</span>))</span>
+<span id="cb76-5"><a href="pmeasyr-imports-mco.html#cb76-5" aria-hidden="true" tabindex="-1"></a>cim <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;cim&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb76-6"><a href="pmeasyr-imports-mco.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(code,<span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb76-7"><a href="pmeasyr-imports-mco.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(code,lib_court)</span>
+<span id="cb76-8"><a href="pmeasyr-imports-mco.html#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Regroupements GHM</span></span>
+<span id="cb76-9"><a href="pmeasyr-imports-mco.html#cb76-9" aria-hidden="true" tabindex="-1"></a>regroupement <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&#39;ghm_ghm_regroupement&#39;</span>)</span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="création-dune-table-contenant-la-plus-part-des-informations-utiles" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Création d’une table contenant la plus part des informations utiles</h2>
-<p>Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s’y retrouver nous vous proposons de créer une table pivot constutées par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l’analyse de l’activité.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="pmeasyr-imports-mco.html#cb70-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> rsa21<span class="sc">$</span>ano <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="pmeasyr-imports-mco.html#cb70-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">inner_join</span>( .,</span>
-<span id="cb70-3"><a href="pmeasyr-imports-mco.html#cb70-3" aria-hidden="true" tabindex="-1"></a>                       rsa21<span class="sc">$</span>rsa <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,</span>
-<span id="cb70-4"><a href="pmeasyr-imports-mco.html#cb70-4" aria-hidden="true" tabindex="-1"></a>                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) </span>
-<span id="cb70-5"><a href="pmeasyr-imports-mco.html#cb70-5" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
-<span id="cb70-6"><a href="pmeasyr-imports-mco.html#cb70-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
-<span id="cb70-7"><a href="pmeasyr-imports-mco.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                     rum21<span class="sc">$</span>rum )</span>
-<span id="cb70-8"><a href="pmeasyr-imports-mco.html#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-9"><a href="pmeasyr-imports-mco.html#cb70-9" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
-<span id="cb70-10"><a href="pmeasyr-imports-mco.html#cb70-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
-<span id="cb70-11"><a href="pmeasyr-imports-mco.html#cb70-11" aria-hidden="true" tabindex="-1"></a>                   amurm21 <span class="sc">%&gt;%</span> <span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, </span>
-<span id="cb70-12"><a href="pmeasyr-imports-mco.html#cb70-12" aria-hidden="true" tabindex="-1"></a>                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) </span></code></pre></div>
-<p>Ajout des dms dans la base nationale. Attention jointure complexe : les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas on préfèrera le niveau GHM (soins palialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes
-- table intermédaire 1 résultat de l’appariement des rum au GHM
-- table intermédaire 2 résultat de l’appariement des rum au GHS
-- ajout des séjours n’appartenant à aucune des 2 tables ci dessus</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="pmeasyr-imports-mco.html#cb71-1" aria-hidden="true" tabindex="-1"></a>data21<span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df))</span>
-<span id="cb71-2"><a href="pmeasyr-imports-mco.html#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-3"><a href="pmeasyr-imports-mco.html#cb71-3" aria-hidden="true" tabindex="-1"></a>data21_dms1<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21 <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
-<span id="cb71-4"><a href="pmeasyr-imports-mco.html#cb71-4" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghs,<span class="at">.keep_all =</span> T) )</span>
-<span id="cb71-5"><a href="pmeasyr-imports-mco.html#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-6"><a href="pmeasyr-imports-mco.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
-<span id="cb71-7"><a href="pmeasyr-imports-mco.html#cb71-7" aria-hidden="true" tabindex="-1"></a>data21_dms2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
-<span id="cb71-8"><a href="pmeasyr-imports-mco.html#cb71-8" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ghs) <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghm,<span class="at">.keep_all =</span> T)  )</span>
-<span id="cb71-9"><a href="pmeasyr-imports-mco.html#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-10"><a href="pmeasyr-imports-mco.html#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-11"><a href="pmeasyr-imports-mco.html#cb71-11" aria-hidden="true" tabindex="-1"></a>data21_2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_dms1,data21_dms2)</span>
-<span id="cb71-12"><a href="pmeasyr-imports-mco.html#cb71-12" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_2, data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span> id <span class="sc">%in%</span> <span class="fu">c</span>(data21_dms1<span class="sc">$</span>id,data21_dms2<span class="sc">$</span>id) ) )</span>
-<span id="cb71-13"><a href="pmeasyr-imports-mco.html#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-14"><a href="pmeasyr-imports-mco.html#cb71-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(data21_dms1,data21_dms2,data21_2) </span></code></pre></div>
+<div id="création-dune-table-contenant-la-plus-part-des-informations-utiles" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Création d’une table contenant la plus part des informations utiles</h2>
+<p>Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s’y retrouver nous vous proposons de créer une table pivot constutée par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l’analyse de l’activité.</p>
+<p>Quelques détails sur les foncitons de jointure</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="pmeasyr-imports-mco.html#cb77-1" aria-hidden="true" tabindex="-1"></a>?dplyr<span class="sc">::</span>left_join</span></code></pre></div>
+<p>Nous utilsons les fonctions de jointure pour fusionner les tables ano, rsa, rum et amurm sans déclarer les colonnes qui permettront la jointure dans le <code>by</code>.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="pmeasyr-imports-mco.html#cb78-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> rsa21<span class="sc">$</span>ano <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="pmeasyr-imports-mco.html#cb78-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">inner_join</span>( .,</span>
+<span id="cb78-3"><a href="pmeasyr-imports-mco.html#cb78-3" aria-hidden="true" tabindex="-1"></a>                       rsa21<span class="sc">$</span>rsa <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,</span>
+<span id="cb78-4"><a href="pmeasyr-imports-mco.html#cb78-4" aria-hidden="true" tabindex="-1"></a>                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) </span>
+<span id="cb78-5"><a href="pmeasyr-imports-mco.html#cb78-5" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
+<span id="cb78-6"><a href="pmeasyr-imports-mco.html#cb78-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb78-7"><a href="pmeasyr-imports-mco.html#cb78-7" aria-hidden="true" tabindex="-1"></a>                     rum21<span class="sc">$</span>rum )</span></code></pre></div>
+<p>Danslce fichier <code>amurm</code> les UMA entité juridique sont dénommées <code>uma_ej</code> alors que dans le nom de cette variable importée avec <code>pmeasyr</code> est <code>cdurm</code> . On change le nom de la variable avant la fusion des tables.</p>
+<p>Par ailleurs comme on souhaite une seule ligne par UMA on procède à un déboulonnage. On utilise ici la fonction <code>dplyr::distinct</code></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="pmeasyr-imports-mco.html#cb79-1" aria-hidden="true" tabindex="-1"></a>amurm21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="pmeasyr-imports-mco.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code></pre></div>
+<p>Ecrite comme cela l’ensemble des colonnes de la table sont supprimées. On ajoute <code>.keep_all = T</code></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="pmeasyr-imports-mco.html#cb80-1" aria-hidden="true" tabindex="-1"></a>amurm21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="pmeasyr-imports-mco.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="pmeasyr-imports-mco.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code></pre></div>
+<p>On utilise cette nouvelle table dans la jointure, en ne slectionnant que les colonnes qui nous interessent</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="pmeasyr-imports-mco.html#cb81-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="pmeasyr-imports-mco.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb81-3"><a href="pmeasyr-imports-mco.html#cb81-3" aria-hidden="true" tabindex="-1"></a>                   amurm21 <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb81-4"><a href="pmeasyr-imports-mco.html#cb81-4" aria-hidden="true" tabindex="-1"></a>                     dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb81-5"><a href="pmeasyr-imports-mco.html#cb81-5" aria-hidden="true" tabindex="-1"></a>                     dplyr<span class="sc">::</span><span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, </span>
+<span id="cb81-6"><a href="pmeasyr-imports-mco.html#cb81-6" aria-hidden="true" tabindex="-1"></a>                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) </span></code></pre></div>
+<p><strong>Ajout des dms dans la base nationale</strong> : Attention jointure complexe car les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas également au niveau GHM (soins pallialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes :</p>
+<ul>
+<li>table intermédaire 1 résultat de l’appariement des rum avec la table de référence sur le GHM</li>
+<li>table intermédaire 2 résultat de l’appariement des rum avec la table de référence sur le GHS</li>
+<li>ajout des séjours n’appartenant à aucune des 2 tables ci dessus</li>
+</ul>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="pmeasyr-imports-mco.html#cb82-1" aria-hidden="true" tabindex="-1"></a>data21<span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df))</span>
+<span id="cb82-2"><a href="pmeasyr-imports-mco.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="pmeasyr-imports-mco.html#cb82-3" aria-hidden="true" tabindex="-1"></a>data21_dms1<span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">inner_join</span>(data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb82-4"><a href="pmeasyr-imports-mco.html#cb82-4" aria-hidden="true" tabindex="-1"></a>                                dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghs,<span class="at">.keep_all =</span> T) </span>
+<span id="cb82-5"><a href="pmeasyr-imports-mco.html#cb82-5" aria-hidden="true" tabindex="-1"></a>                                )</span>
+<span id="cb82-6"><a href="pmeasyr-imports-mco.html#cb82-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-7"><a href="pmeasyr-imports-mco.html#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
+<span id="cb82-8"><a href="pmeasyr-imports-mco.html#cb82-8" aria-hidden="true" tabindex="-1"></a>data21_dms2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb82-9"><a href="pmeasyr-imports-mco.html#cb82-9" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ghs) <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghm,<span class="at">.keep_all =</span> T)  )</span>
+<span id="cb82-10"><a href="pmeasyr-imports-mco.html#cb82-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-11"><a href="pmeasyr-imports-mco.html#cb82-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-12"><a href="pmeasyr-imports-mco.html#cb82-12" aria-hidden="true" tabindex="-1"></a>data21_2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_dms1,data21_dms2)</span>
+<span id="cb82-13"><a href="pmeasyr-imports-mco.html#cb82-13" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_2, data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span> id <span class="sc">%in%</span> <span class="fu">c</span>(data21_dms1<span class="sc">$</span>id,data21_dms2<span class="sc">$</span>id) ) )</span>
+<span id="cb82-14"><a href="pmeasyr-imports-mco.html#cb82-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-15"><a href="pmeasyr-imports-mco.html#cb82-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(data21_dms1,data21_dms2,data21_2) </span></code></pre></div>
 
 </div>
 </div>
