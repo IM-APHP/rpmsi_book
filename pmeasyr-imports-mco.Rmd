@@ -15,9 +15,10 @@
 |[ipo](https://guillaumepressiat.github.io/pmeasyr/reference/ipo.html)       |~ MCO - Import des PO              |
 |[iano_mco](https://guillaumepressiat.github.io/pmeasyr/reference/iano_mco.html)  |~ MCO - Import des Anohosp         |
 
+
 ## Noyau pmeasyr
 
-Comme les différents paramaères de l'import que nous avons vu au chapitre précéndents sont réutilisés plusieurs fois, nous pouvons créer un objet pmeasyr destiné à stocker toutes ces informarions, appelé, noyau :
+Comme les différents paramètres permettant à ```pmeasyr``` de réaliser l'import (et en particulier de retrouver le bon fichier zipper sur le disque) sont réutilisés plusieurs fois, nous pouvons créer un objet ```pmeasyr``` destiné à stocker toutes ces informarions, appelé, noyau :
 
 ```{r eval = FALSE}
 p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
@@ -39,6 +40,9 @@ p<-pmeasyr::noyau_pmeasyr(finess = 750712184,
 |    6|Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)    |
 
 ```{r eval = FALSE}
+pmeasyr::adezip(p
+                liste = c("rsa","tra"), 
+                type = "out")
 
 ira(p,
     typi = 4,
@@ -60,6 +64,10 @@ ira(p,
 
 ```{r eval = FALSE}
 
+pmeasyr::adezip(p
+                liste = c("rss"), 
+                type = "in")
+
 rum21<- irum(p,
             typi = 4,
             tolower_names = TRUE )
@@ -74,6 +82,7 @@ rum21<- irum(p,
 Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.
 
 Il comprend un lien entre :
+
 - clé rsa,
 - numéro de rss, 
 - numéro de sejour (nas),
@@ -89,13 +98,36 @@ inner_tra(rsa15$rsa, tra) -> rsa15$rsa
 
 ```
 
+
+## Table pmeasyr des formats
+
+Les fonctions d'import de ```pmeasyr``` utilisent les formats officiels défini par l'ATIH pour constituer les fichiers qui seront mis en entrées et sortie des logiciels développés par l'agence et qui permettront l'échange de données ([formats officiels](https://www.atih.sante.fr/formats-pmsi-2021) des données en entrée des logiciels permettant la transmission).
+
+C'est format sont stockés dans le package sous la forme d'un table de format accèssible aux utilisateurs
+```{r eval = FALSE}
+pmeasyr::formats 
+
+pmeasyr::formats %>% dplyr::filter(table == "tra") %>% 
+  dplyr::group_by(champ,an) %>% dplyr::summarise(nb = dplyr::n() ) 
+
+pmeasyr::formats %>% dplyr::group_by(champ,table) %>% 
+  dplyr::summarise(nb_annee = length(unique(an)))
+
+
+pmeasyr::formats %>% dplyr::filter(table == rsa, an == 21)
+
+
+```
+
+NB: on voit qu'un package peut contenir à la fois des fonctions et des jeux de données. C'est le cas ici avec la table ```formats``` qui contient des données de parmatrage.
+
 ### Récupérer des référentiels sur referime
 
-Le package [referime](https://github.com/NamikTaright/referime) maintenu par Namik Taright alimente le serveur de référentiels du DIM de l'AP-HP. Il est la base d'un webservice utilisé par différents entité de l'institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l'analyse des données PMSI.
+Le package [referime](https://github.com/NamikTaright/referime) maintenu par Namik Taright alimente le serveur de référentiels du DIM de l'AP-HP. Il est  à la base d'un webservice utilisé par différents entités de l'institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l'analyse des données PMSI.
 
 ### Fichier descriptif des UMA sur referime
 
-Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieur ligne pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` .
+Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` .
 
 ```{r eval = FALSE}
 library(referime)
@@ -144,7 +176,7 @@ regroupement <- referime::get_table('ghm_ghm_regroupement')
 
 ## Création d'une table contenant la plus part des informations utiles
 
-Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s'y retrouver nous vous proposons de créer une table pivot constutées par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l'analyse de l'activité.
+Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s'y retrouver nous vous proposons de créer une table pivot constutée par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l'analyse de l'activité.
 
 
 ```{r eval = FALSE}
@@ -164,9 +196,10 @@ data21 <- data21 %>%
   
 ```
 
-Ajout des dms dans la base nationale. Attention jointure complexe : les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas on préfèrera le niveau GHM (soins palialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes
-- table intermédaire 1 résultat de l'appariement des rum au GHM
-- table intermédaire 2 résultat de l'appariement des rum au GHS
+**Ajout des dms dans la base nationale** : Attention jointure complexe car les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas également au niveau GHM (soins pallialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes :
+
+- table intermédaire 1 résultat de l'appariement des rum avec la table de référence sur le GHM
+- table intermédaire 2 résultat de l'appariement des rum avec la table de référence sur le GHS
 - ajout des séjours n'appartenant à aucune des 2 tables ci dessus
 
 
