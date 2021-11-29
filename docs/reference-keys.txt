@@ -9,14 +9,3 @@ la-grammaire-dplyr
 premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr
 import-des-données-mco
 premières-analyses
-pmeasyr-imports-mco
-les-différents-fichiers-à-importer
-noyau-pmeasyr
-imports-des-rsa
-import-des-rum
-import-du-fichier-tra
-récupérer-des-référentiels-sur-referime
-fichier-descriptif-des-uma-sur-referime
-dms-de-la-base-nationale
-autres-références-utiles
-création-dune-table-contenant-la-plus-part-des-informations-utiles

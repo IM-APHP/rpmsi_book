@@ -147,16 +147,48 @@ La colonne ```anseqta``` contient l'information sur l'année de version du tarif
 - les séjours de l'année n à partir du 1er mars 
 - les séjours de l'année n+1 jusqu'au 28/29 février
 
-Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d'année, pour l'année en cours on se contente d'utiliser les dms calculées sur l'année précédente.
+
 
 ```{r eval = FALSE}
 #dms base nationales
 dms_nationales <- referime::get_table("ghm_dms_nationales")
 
+dms_nationales
+
+```
+
+Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d'année, pour l'année en cours on se contente d'utiliser les dms calculées sur l'année précédente. Pour cela on utilise la fonction ```dplyr::bind_rows``` qui permet de concaténer des dataframes par lignes (sont équivalant par colonne est ```dplyr::bind_cols``` ).
+
+```{r eval = FALSE}
+
 #2021 pas encore présente dans le fichier, on utilise 2020
 dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
   dplyr::mutate(anseqta = "2021") %>%
   dplyr::bind_rows(dms_nationales,.)
+```
+
+NB : les fonctions ```dplyr``` sont plus souples que les fonctions natives de R et elles tolèrent que les 2 dataframes n'aient pas exactement le même nombre de colonnes. Dans ce cas, elles créent des colonnes vides pour les colones qui pouraient manquer dans l'un des 2 dataframe.
+
+```{r eval = FALSE}
+
+#Exemple de fusion de 2 jeux de données qui n'ont pas les mêmes colonnes
+dplyr::bind_rows(
+  
+  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghm) ) %>% 
+  dplyr::select( anseqta, dms_n, ghm ),
+  
+  dms_nationales %>% dplyr::filter( anseqta=="2020", !is.na(ghs) ) %>% 
+  dplyr::select( anseqta, dms_n, ghs )
+  
+  ) -> test
+
+test
+
+test %>% dplyr::fitler(!is.na(ghm))
+
+
+test %>% dplyr::fitler(!is.na(ghs))
+
 ```
 
 #### Autres références utiles
@@ -178,7 +210,13 @@ regroupement <- referime::get_table('ghm_ghm_regroupement')
 
 Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s'y retrouver nous vous proposons de créer une table pivot constutée par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l'analyse de l'activité.
 
+Quelques détails sur les foncitons de jointure
 
+```{r eval = FALSE}
+?dplyr::left_join
+```
+
+Nous utilsons les fonctions de jointure pour fusionner les tables ano, rsa, rum et amurm sans déclarer les colonnes qui permettront la jointure dans le ```by```.
 ```{r eval = FALSE}
 data21 <- rsa21$ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
     dplyr::inner_join( .,
@@ -190,7 +228,7 @@ data21 <- data21 %>%
 
 data21 <- data21 %>%
   dplyr::left_join( .,
-                   amurm21 %>% select( gh, cdurm, typaut, mode_hospit, nohop, 
+                   amurm21 %>% dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, 
                                        lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) 
 
   
@@ -204,10 +242,11 @@ data21 <- data21 %>%
 
 
 ```{r eval = FALSE}
-data21<- data21 %>% mutate(id = 1:nrow(df))
+data21<- data21 %>% dplyr::mutate(id = 1:nrow(df))
 
-data21_dms1<-inner_join(data21 %>% rename(ghs = noghs),
-                    dms_nationales%>%filter(ghs!="") %>% dplyr::distinct(anseqta,ghs,.keep_all = T) )
+data21_dms1<- dplyr::inner_join(data21 %>% dplyr::rename(ghs = noghs),
+                                dms_nationales %>% dplyr::filter(ghs!="") %>% dplyr::distinct(anseqta,ghs,.keep_all = T) 
+                                )
 
 #Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm
 data21_dms2<-inner_join(data21%>%rename(ghs = noghs),
