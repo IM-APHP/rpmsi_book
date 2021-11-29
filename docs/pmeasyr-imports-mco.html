@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
 <li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
 <li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
-<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra-ano"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA &amp; ANO</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-fichiers-tra-et-ano"><i class="fa fa-check"></i><b>4.5</b> Import des fichiers TRA et ANO</a></li>
 <li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#table-pmeasyr-des-formats"><i class="fa fa-check"></i><b>4.6</b> Table pmeasyr des formats</a>
 <ul>
 <li class="chapter" data-level="4.6.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.6.1</b> Récupérer des référentiels sur referime</a></li>
@@ -337,8 +337,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-6"><a href="pmeasyr-imports-mco.html#cb65-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">typi =</span> <span class="dv">4</span>,</span>
 <span id="cb65-7"><a href="pmeasyr-imports-mco.html#cb65-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">tolower_names =</span> <span class="cn">TRUE</span> )</span></code></pre></div>
 </div>
-<div id="import-du-fichier-tra-ano" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Import du fichier TRA &amp; ANO</h2>
+<div id="import-des-fichiers-tra-et-ano" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Import des fichiers TRA et ANO</h2>
 <p>Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.</p>
 <p>Il comprend un lien entre :</p>
 <ul>
@@ -349,6 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>date de sortie du séjour</li>
 </ul>
 <p>L’import se fait en 2 parties : import du fichier avec la fonction <code>itra</code>, ajout des colonnes dans la table des rsa <code>inner_tra</code> .</p>
+<p>Le fichier ANO contient les données de l’ANOHSP, on utilise ici les ano du out auquel il faut ajouter également les élements du TRA.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="pmeasyr-imports-mco.html#cb66-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">itra</span>(p) <span class="ot">-&gt;</span> tra</span>
 <span id="cb66-2"><a href="pmeasyr-imports-mco.html#cb66-2" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">iano_mco</span>(p) <span class="ot">-&gt;</span> rsa_ano </span>
 <span id="cb66-3"><a href="pmeasyr-imports-mco.html#cb66-3" aria-hidden="true" tabindex="-1"></a></span>

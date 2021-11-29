@@ -79,7 +79,7 @@ rum21<- pmeasyr::irum(p,
 ```
 
 
-## Import du fichier TRA & ANO
+## Import des fichiers TRA et ANO
 
 Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.
 
@@ -92,6 +92,8 @@ Il comprend un lien entre :
 - date de sortie du séjour
 
 L'import se fait en 2 parties : import du fichier avec la fonction ```itra```, ajout des colonnes dans la table des rsa ```inner_tra``` .
+
+Le fichier ANO contient les données de l'ANOHSP, on utilise ici les ano du out auquel il faut ajouter également les élements du TRA.
 
 ```r
 pmeasyr::itra(p) -> tra
