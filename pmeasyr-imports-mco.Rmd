@@ -21,10 +21,14 @@
 Comme les différents paramètres permettant à ```pmeasyr``` de réaliser l'import (et en particulier de retrouver le bon fichier zipper sur le disque) sont réutilisés plusieurs fois, nous pouvons créer un objet ```pmeasyr``` destiné à stocker toutes ces informarions, appelé, noyau :
 
 ```{r eval = FALSE}
+
+path_data = 'path/to/your/data/folder'
+
 p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
-                annee = 2021, 
-                mois = 8, 
-                path = 'C:/Users/3056269/Documents/data/mco')
+                          annee = 2021, 
+                          mois = 8, 
+                          path = path_data,
+                          tolower_names = TRUE)
 
                 
 ```
@@ -40,11 +44,11 @@ p<-pmeasyr::noyau_pmeasyr(finess = 750712184,
 |    6|Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)    |
 
 ```{r eval = FALSE}
-pmeasyr::adezip(p
+pmeasyr::adezip(p,
                 liste = c("rsa","tra"), 
                 type = "out")
 
-ira(p,
+pmeasyr::irsa(p,
     typi = 4,
     tolower_names = TRUE ) -> rsa21
 
@@ -64,13 +68,14 @@ ira(p,
 
 ```{r eval = FALSE}
 
-pmeasyr::adezip(p
+
+pmeasyr::adezip(p,
                 liste = c("rss"), 
                 type = "in")
 
-rum21<- irum(p,
-            typi = 4,
-            tolower_names = TRUE )
+rum21<- pmeasyr::irum(p,
+             typi = 4,
+             tolower_names = TRUE )
 
 
 
@@ -107,14 +112,49 @@ C'est format sont stockés dans le package sous la forme d'un table de format ac
 ```{r eval = FALSE}
 pmeasyr::formats 
 
-pmeasyr::formats %>% dplyr::filter(table == "tra") %>% 
-  dplyr::group_by(champ,an) %>% dplyr::summarise(nb = dplyr::n() ) 
+pmeasyr::formats %>% View()
+```
+La fonction ```View()``` permet d'accéder à un visionneur de code
 
-pmeasyr::formats %>% dplyr::group_by(champ,table) %>% 
-  dplyr::summarise(nb_annee = length(unique(an)))
-
+**Liste des variables pour la table RSA en 2021**
+```{r eval = FALSE}
 
 pmeasyr::formats %>% dplyr::filter(table == rsa, an == 21)
+
+```
+
+**Le TRA dans les différents champs et les différentes années **
+
+Remarquez l'utilisation de la fonction ```dplyr::n()``` qui permet de compter le nombre de ligne dans un dataframe 
+```{r eval = FALSE}
+
+pmeasyr::formats %>% dplyr::filter(table == "tra") %>% 
+  dplyr::group_by(champ,an) %>% dplyr::summarise(nb = dplyr::n() ) %>% View()
+```
+
+**Nombre d'années disponibles pour chaucn des champs avec visablisation du noms des tables importables**
+
+Pour compter le nombre d'éléments distinct dans un vecteur, on utilise les fonctions ```length()``` et ```unique()``` .
+
+```{r eval = FALSE}
+
+#exemple length(unique(x))
+
+x = c(4,4,5,5,5,5,6,6,6)
+
+length(x)
+
+unique(x)
+
+length(unique(x))
+```
+
+
+Mise en application pour compter le nombre d'année disponible par champ et par table
+```{r eval = FALSE}
+pmeasyr::formats %>% dplyr::group_by(champ,table) %>% 
+  dplyr::summarise(nb_annee = length(unique(an))) %>% View()
+
 
 
 ```
@@ -127,14 +167,14 @@ Le package [referime](https://github.com/NamikTaright/referime) maintenu par Nam
 
 ### Fichier descriptif des UMA sur referime
 
-Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` .
+Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA. 
 
 ```{r eval = FALSE}
 library(referime)
 
 ium<- referime::get_table("amurm_2021")
-ium <- ium %>% dplyr::rename(cdurm = uma_ej) %>%
-  dplyr::distinct(cdurm,.keep_all = T)
+
+View(ium)
 
 ```
 
@@ -159,15 +199,7 @@ dms_nationales
 
 Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d'année, pour l'année en cours on se contente d'utiliser les dms calculées sur l'année précédente. Pour cela on utilise la fonction ```dplyr::bind_rows``` qui permet de concaténer des dataframes par lignes (sont équivalant par colonne est ```dplyr::bind_cols``` ).
 
-```{r eval = FALSE}
-
-#2021 pas encore présente dans le fichier, on utilise 2020
-dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
-  dplyr::mutate(anseqta = "2021") %>%
-  dplyr::bind_rows(dms_nationales,.)
-```
-
-NB : les fonctions ```dplyr``` sont plus souples que les fonctions natives de R et elles tolèrent que les 2 dataframes n'aient pas exactement le même nombre de colonnes. Dans ce cas, elles créent des colonnes vides pour les colones qui pouraient manquer dans l'un des 2 dataframe.
+Exemple d'utilisation de 
 
 ```{r eval = FALSE}
 
@@ -190,6 +222,20 @@ test %>% dplyr::fitler(!is.na(ghm))
 test %>% dplyr::fitler(!is.na(ghs))
 
 ```
+
+Application pour créer une table de référentiel base nationale complète.
+
+```{r eval = FALSE}
+
+#2021 pas encore présente dans le fichier, on utilise 2020
+dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
+  dplyr::mutate(anseqta = "2021") %>%
+  dplyr::bind_rows(dms_nationales,.)
+```
+
+NB : les fonctions ```dplyr``` sont plus souples que les fonctions natives de R et elles tolèrent que les 2 dataframes n'aient pas exactement le même nombre de colonnes. Dans ce cas, elles créent des colonnes vides pour les colones qui pouraient manquer dans l'un des 2 dataframe.
+
+
 
 #### Autres références utiles
 ```{r eval = FALSE}
@@ -226,9 +272,37 @@ data21 <- data21 %>%
     dplyr::left_join( .,
                      rum21$rum )
 
+```
+
+Danslce fichier  ```amurm``` les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` . On change le nom de la variable avant la fusion des tables.
+
+Par ailleurs comme on souhaite une seule ligne par UMA on procède à un déboulonnage. On utilise ici la fonction ```dplyr::distinct```
+```{r eval = FALSE}
+
+amurm21 %>% dplyr::rename(cdurm = uma_ej) %>%
+  View()
+
+
+```
+
+Ecrite comme cela l'ensemble des colonnes de la table sont supprimées. On ajoute ```.keep_all = T```
+
+```{r eval = FALSE}
+
+amurm21 %>% dplyr::rename(cdurm = uma_ej) %>%
+  dplyr::distinct(cdurm,.keep_all = T) %>%
+  View()
+
+```
+
+On utilise cette nouvelle table dans la jointure, en ne slectionnant que les colonnes qui nous interessent
+
+```{r eval = FALSE}
 data21 <- data21 %>%
   dplyr::left_join( .,
-                   amurm21 %>% dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, 
+                   amurm21 %>%  dplyr::rename(cdurm = uma_ej) %>%
+                     dplyr::distinct(cdurm,.keep_all = T) %>%
+                     dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, 
                                        lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) 
 
   
