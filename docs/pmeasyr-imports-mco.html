@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 pmeasyr : Imports MCO | Analyser les données PMSI avec R</title>
+  <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 pmeasyr : Imports MCO | Analyser les données PMSI avec R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/cover.png" />
+  <meta property="og:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="github-repo" content="IM-APHP/rpmsi_book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 pmeasyr : Imports MCO | Analyser les données PMSI avec R" />
+  
+  <meta name="twitter:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="twitter:image" content="/cover.png" />
+
+<meta name="author" content="Rémi Flicoteaux" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Analyser les données PMSI avec R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenu</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#les-notions-et-concepts-que-vous-aller-acquérir"><i class="fa fa-check"></i><b>1.1</b> Les notions et concepts que vous aller acquérir</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html"><i class="fa fa-check"></i><b>2</b> Language R : les fondamentaux</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#instructions"><i class="fa fa-check"></i><b>2.1</b> Instructions</a></li>
+<li class="chapter" data-level="2.2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#objets"><i class="fa fa-check"></i><b>2.2</b> Objets</a></li>
+<li class="chapter" data-level="2.3" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#fonctions"><i class="fa fa-check"></i><b>2.3</b> Fonctions</a></li>
+<li class="chapter" data-level="2.4" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#le-format-des-objets"><i class="fa fa-check"></i><b>2.4</b> Le format des objets</a></li>
+<li class="chapter" data-level="2.5" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#la-grammaire-dplyr"><i class="fa fa-check"></i><b>2.5</b> La grammaire dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><i class="fa fa-check"></i><b>3</b> Premiers pas avec les données PMSI importées avec pmeasyr</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données-mco"><i class="fa fa-check"></i><b>3.1</b> Import des données MCO</a></li>
+<li class="chapter" data-level="3.2" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#premières-analyses"><i class="fa fa-check"></i><b>3.2</b> Premières analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html"><i class="fa fa-check"></i><b>4</b> pmeasyr : Imports MCO</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#les-différents-fichiers-à-importer"><i class="fa fa-check"></i><b>4.1</b> Les différents fichiers à importer</a></li>
+<li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
+<li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
+<li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.5.1</b> Récupérer des référentiels sur referime</a></li>
+<li class="chapter" data-level="4.5.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.5.2</b> Fichier descriptif des UMA sur referime</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.6</b> Création d’une table contenant la plus part des informations utiles</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyser les données PMSI avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pmeasyr-imports-mco" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> pmeasyr : Imports MCO</h1>
+<p><a href="https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco">pmeasyrr-book</a>)</p>
+<div id="les-différents-fichiers-à-importer" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Les différents fichiers à importer</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Nom</th>
+<th align="left">Fonction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/irsa.html">irsa</a></td>
+<td align="left">~ MCO - Import des RSA</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/irum.html">irum</a></td>
+<td align="left">~ MCO - Import des RUM</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/idiap.html">idiap</a></td>
+<td align="left">~ MCO - Import des DIAP</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/idmi_mco.html">idmi_mco</a></td>
+<td align="left">~ MCO - Import des DMI</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/iium.html">iium</a></td>
+<td align="left">~ MCO - Import des donnees UM</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/ileg_mco.html">ileg_mco</a></td>
+<td align="left">~ MCO - Import des erreurs Leg</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/imed_mco.html">imed_mco</a></td>
+<td align="left">~ MCO - Import des Med</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/ipo.html">ipo</a></td>
+<td align="left">~ MCO - Import des PO</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://guillaumepressiat.github.io/pmeasyr/reference/iano_mco.html">iano_mco</a></td>
+<td align="left">~ MCO - Import des Anohosp</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="noyau-pmeasyr" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Noyau pmeasyr</h2>
+<p>Comme les différents paramaères de l’import que nous avons vu au chapitre précéndents sont réutilisés plusieurs fois, nous pouvons créer un objet pmeasyr destiné à stocker toutes ces informarions, appelé, noyau :</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="pmeasyr-imports-mco.html#cb63-1" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span>pmeasyr<span class="sc">::</span><span class="fu">noyau_pmeasyr</span>(<span class="at">finess =</span> <span class="dv">750712184</span>, </span>
+<span id="cb63-2"><a href="pmeasyr-imports-mco.html#cb63-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">annee =</span> <span class="dv">2021</span>, </span>
+<span id="cb63-3"><a href="pmeasyr-imports-mco.html#cb63-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">mois =</span> <span class="dv">8</span>, </span>
+<span id="cb63-4"><a href="pmeasyr-imports-mco.html#cb63-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">path =</span> <span class="st">&#39;C:/Users/3056269/Documents/data/mco&#39;</span>)</span></code></pre></div>
+</div>
+<div id="imports-des-rsa" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Imports des RSA</h2>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Type</th>
+<th align="left">Import</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Light : Partie fixe</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Light+ : Partie fixe + stream en ligne (+) actes et das</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Light++ : Partie fixe + stream en ligne (++) actes, das, typaut um et dpdr des um</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Standard : Partie fixe + creation des tables actes, das et rsa_um</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Standard+ : Partie fixe + creation des tables actes, das et rsa_um + stream (+)</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="pmeasyr-imports-mco.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ira</span>(p,</span>
+<span id="cb64-2"><a href="pmeasyr-imports-mco.html#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">typi =</span> <span class="dv">4</span>,</span>
+<span id="cb64-3"><a href="pmeasyr-imports-mco.html#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tolower_names =</span> <span class="cn">TRUE</span> ) <span class="ot">-&gt;</span> rsa21</span></code></pre></div>
+</div>
+<div id="import-des-rum" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Import des RUM</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Type</th>
+<th align="left">Import</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">XLight : Partie fixe</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Light : Partie fixe + stream en ligne des actes, das et dad</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Standard : Partie fixe + table actes, das, dad</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Standard+ : Partie fixe + stream + table actes, das, dad</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="pmeasyr-imports-mco.html#cb65-1" aria-hidden="true" tabindex="-1"></a>rum21<span class="ot">&lt;-</span> <span class="fu">irum</span>(p,</span>
+<span id="cb65-2"><a href="pmeasyr-imports-mco.html#cb65-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">typi =</span> <span class="dv">4</span>,</span>
+<span id="cb65-3"><a href="pmeasyr-imports-mco.html#cb65-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">tolower_names =</span> <span class="cn">TRUE</span> )</span></code></pre></div>
+</div>
+<div id="import-du-fichier-tra" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Import du fichier TRA</h2>
+<p>Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.</p>
+<p>Il comprend un lien entre :
+- clé rsa,
+- numéro de rss,
+- numéro de sejour (nas),
+- date d’entrée
+- date de sortie du séjour</p>
+<p>L’import se fait en 2 parties : import du fichier avec la fonction <code>itra</code>, ajout des colonnes dans la table des rsa <code>inner_tra</code> .</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="pmeasyr-imports-mco.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">itra</span>(p) <span class="ot">-&gt;</span> tra</span>
+<span id="cb66-2"><a href="pmeasyr-imports-mco.html#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="pmeasyr-imports-mco.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_tra</span>(rsa15<span class="sc">$</span>rsa, tra) <span class="ot">-&gt;</span> rsa15<span class="sc">$</span>rsa</span></code></pre></div>
+<div id="récupérer-des-référentiels-sur-referime" class="section level3" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Récupérer des référentiels sur referime</h3>
+<p>Le package <a href="https://github.com/NamikTaright/referime">referime</a> maintenu par Namik Taright alimente le serveur de référentiels du DIM de l’AP-HP. Il est la base d’un webservice utilisé par différents entité de l’institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l’analyse des données PMSI.</p>
+</div>
+<div id="fichier-descriptif-des-uma-sur-referime" class="section level3" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Fichier descriptif des UMA sur referime</h3>
+<p>Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l’UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieur ligne pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées <code>uma_ej</code> alors que dans le nom de cette variable importée avec <code>pmeasyr</code> est <code>cdurm</code> .</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="pmeasyr-imports-mco.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(referime)</span>
+<span id="cb67-2"><a href="pmeasyr-imports-mco.html#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="pmeasyr-imports-mco.html#cb67-3" aria-hidden="true" tabindex="-1"></a>ium<span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
+<span id="cb67-4"><a href="pmeasyr-imports-mco.html#cb67-4" aria-hidden="true" tabindex="-1"></a>ium <span class="ot">&lt;-</span> ium <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb67-5"><a href="pmeasyr-imports-mco.html#cb67-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T)</span></code></pre></div>
+<div id="dms-de-la-base-nationale" class="section level4" number="4.5.2.1">
+<h4><span class="header-section-number">4.5.2.1</span> DMS de la base nationale</h4>
+<p>La colonne <code>anseqta</code> contient l’information sur l’année de version du tarif. Elle comprend :</p>
+<ul>
+<li>les séjours de l’année n à partir du 1er mars</li>
+<li>les séjours de l’année n+1 jusqu’au 28/29 février</li>
+</ul>
+<p>Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d’année, pour l’année en cours on se contente d’utiliser les dms calculées sur l’année précédente.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="pmeasyr-imports-mco.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dms base nationales</span></span>
+<span id="cb68-2"><a href="pmeasyr-imports-mco.html#cb68-2" aria-hidden="true" tabindex="-1"></a>dms_nationales <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ghm_dms_nationales&quot;</span>)</span>
+<span id="cb68-3"><a href="pmeasyr-imports-mco.html#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="pmeasyr-imports-mco.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co">#2021 pas encore présente dans le fichier, on utilise 2020</span></span>
+<span id="cb68-5"><a href="pmeasyr-imports-mco.html#cb68-5" aria-hidden="true" tabindex="-1"></a>dms_nationales<span class="ot">&lt;-</span> dms_nationales <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(anseqta<span class="sc">==</span><span class="st">&quot;2020&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-6"><a href="pmeasyr-imports-mco.html#cb68-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">anseqta =</span> <span class="st">&quot;2021&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-7"><a href="pmeasyr-imports-mco.html#cb68-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(dms_nationales,.)</span></code></pre></div>
+</div>
+<div id="autres-références-utiles" class="section level4" number="4.5.2.2">
+<h4><span class="header-section-number">4.5.2.2</span> Autres références utiles</h4>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="pmeasyr-imports-mco.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Actes CCAM : icr, actes chriurgicaux</span></span>
+<span id="cb69-2"><a href="pmeasyr-imports-mco.html#cb69-2" aria-hidden="true" tabindex="-1"></a>icr <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_icr&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb69-3"><a href="pmeasyr-imports-mco.html#cb69-3" aria-hidden="true" tabindex="-1"></a>rgp <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;ccam_regroupement&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(activite  <span class="sc">==</span> <span class="dv">1</span>, regroupement <span class="sc">==</span> <span class="st">&quot;ADC&quot;</span>)</span>
+<span id="cb69-4"><a href="pmeasyr-imports-mco.html#cb69-4" aria-hidden="true" tabindex="-1"></a>acte_chir <span class="ot">&lt;-</span> rgp <span class="sc">%&gt;%</span> <span class="fu">select</span>(code) <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(icr, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;code&quot;</span>))</span>
+<span id="cb69-5"><a href="pmeasyr-imports-mco.html#cb69-5" aria-hidden="true" tabindex="-1"></a>cim <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;cim&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-6"><a href="pmeasyr-imports-mco.html#cb69-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(code,<span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-7"><a href="pmeasyr-imports-mco.html#cb69-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(code,lib_court)</span>
+<span id="cb69-8"><a href="pmeasyr-imports-mco.html#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Regroupements GHM</span></span>
+<span id="cb69-9"><a href="pmeasyr-imports-mco.html#cb69-9" aria-hidden="true" tabindex="-1"></a>regroupement <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&#39;ghm_ghm_regroupement&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="création-dune-table-contenant-la-plus-part-des-informations-utiles" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Création d’une table contenant la plus part des informations utiles</h2>
+<p>Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s’y retrouver nous vous proposons de créer une table pivot constutées par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l’analyse de l’activité.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="pmeasyr-imports-mco.html#cb70-1" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> rsa21<span class="sc">$</span>ano <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="pmeasyr-imports-mco.html#cb70-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">inner_join</span>( .,</span>
+<span id="cb70-3"><a href="pmeasyr-imports-mco.html#cb70-3" aria-hidden="true" tabindex="-1"></a>                       rsa21<span class="sc">$</span>rsa <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,</span>
+<span id="cb70-4"><a href="pmeasyr-imports-mco.html#cb70-4" aria-hidden="true" tabindex="-1"></a>                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) </span>
+<span id="cb70-5"><a href="pmeasyr-imports-mco.html#cb70-5" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
+<span id="cb70-6"><a href="pmeasyr-imports-mco.html#cb70-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb70-7"><a href="pmeasyr-imports-mco.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                     rum21<span class="sc">$</span>rum )</span>
+<span id="cb70-8"><a href="pmeasyr-imports-mco.html#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="pmeasyr-imports-mco.html#cb70-9" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span></span>
+<span id="cb70-10"><a href="pmeasyr-imports-mco.html#cb70-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb70-11"><a href="pmeasyr-imports-mco.html#cb70-11" aria-hidden="true" tabindex="-1"></a>                   amurm21 <span class="sc">%&gt;%</span> <span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, </span>
+<span id="cb70-12"><a href="pmeasyr-imports-mco.html#cb70-12" aria-hidden="true" tabindex="-1"></a>                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) </span></code></pre></div>
+<p>Ajout des dms dans la base nationale. Attention jointure complexe : les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas on préfèrera le niveau GHM (soins palialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes
+- table intermédaire 1 résultat de l’appariement des rum au GHM
+- table intermédaire 2 résultat de l’appariement des rum au GHS
+- ajout des séjours n’appartenant à aucune des 2 tables ci dessus</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="pmeasyr-imports-mco.html#cb71-1" aria-hidden="true" tabindex="-1"></a>data21<span class="ot">&lt;-</span> data21 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df))</span>
+<span id="cb71-2"><a href="pmeasyr-imports-mco.html#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="pmeasyr-imports-mco.html#cb71-3" aria-hidden="true" tabindex="-1"></a>data21_dms1<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21 <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb71-4"><a href="pmeasyr-imports-mco.html#cb71-4" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghs,<span class="at">.keep_all =</span> T) )</span>
+<span id="cb71-5"><a href="pmeasyr-imports-mco.html#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="pmeasyr-imports-mco.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm</span></span>
+<span id="cb71-7"><a href="pmeasyr-imports-mco.html#cb71-7" aria-hidden="true" tabindex="-1"></a>data21_dms2<span class="ot">&lt;-</span><span class="fu">inner_join</span>(data21<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">ghs =</span> noghs),</span>
+<span id="cb71-8"><a href="pmeasyr-imports-mco.html#cb71-8" aria-hidden="true" tabindex="-1"></a>                    dms_nationales<span class="sc">%&gt;%</span><span class="fu">filter</span>(ghs<span class="sc">==</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ghs) <span class="sc">%&gt;%</span>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(anseqta,ghm,<span class="at">.keep_all =</span> T)  )</span>
+<span id="cb71-9"><a href="pmeasyr-imports-mco.html#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="pmeasyr-imports-mco.html#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-11"><a href="pmeasyr-imports-mco.html#cb71-11" aria-hidden="true" tabindex="-1"></a>data21_2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_dms1,data21_dms2)</span>
+<span id="cb71-12"><a href="pmeasyr-imports-mco.html#cb71-12" aria-hidden="true" tabindex="-1"></a>data21 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(data21_2, data21 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span> id <span class="sc">%in%</span> <span class="fu">c</span>(data21_dms1<span class="sc">$</span>id,data21_dms2<span class="sc">$</span>id) ) )</span>
+<span id="cb71-13"><a href="pmeasyr-imports-mco.html#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-14"><a href="pmeasyr-imports-mco.html#cb71-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(data21_dms1,data21_dms2,data21_2) </span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/pmeasyr-imports-mco.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

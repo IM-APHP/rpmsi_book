@@ -1,0 +1,181 @@
+# pmeasyr : Imports MCO
+
+[pmeasyrr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco))
+
+## Les différents fichiers à importer 
+|Nom       |Fonction                           |
+|:---------|:----------------------------------|
+|[irsa](https://guillaumepressiat.github.io/pmeasyr/reference/irsa.html)      |~ MCO - Import des RSA             |
+|[irum](https://guillaumepressiat.github.io/pmeasyr/reference/irum.html)      |~ MCO - Import des RUM             |
+|[idiap](https://guillaumepressiat.github.io/pmeasyr/reference/idiap.html)     |~ MCO - Import des DIAP            |
+|[idmi_mco](https://guillaumepressiat.github.io/pmeasyr/reference/idmi_mco.html)  |~ MCO - Import des DMI             |
+|[iium](https://guillaumepressiat.github.io/pmeasyr/reference/iium.html)      |~ MCO - Import des donnees UM      |
+|[ileg_mco](https://guillaumepressiat.github.io/pmeasyr/reference/ileg_mco.html)  |~ MCO - Import des erreurs Leg     |
+|[imed_mco](https://guillaumepressiat.github.io/pmeasyr/reference/imed_mco.html)  |~ MCO - Import des Med             |
+|[ipo](https://guillaumepressiat.github.io/pmeasyr/reference/ipo.html)       |~ MCO - Import des PO              |
+|[iano_mco](https://guillaumepressiat.github.io/pmeasyr/reference/iano_mco.html)  |~ MCO - Import des Anohosp         |
+
+## Noyau pmeasyr
+
+Comme les différents paramaères de l'import que nous avons vu au chapitre précéndents sont réutilisés plusieurs fois, nous pouvons créer un objet pmeasyr destiné à stocker toutes ces informarions, appelé, noyau :
+
+
+```r
+p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
+                annee = 2021, 
+                mois = 8, 
+                path = 'C:/Users/3056269/Documents/data/mco')
+```
+## Imports des RSA
+
+ Type|Import                                                                               |
+|----:|:------------------------------------------------------------------------------------|
+|    1|Light      : Partie fixe                                                             |
+|    2|Light+     : Partie fixe + stream en ligne (+) actes et das                          |
+|    3|Light++    : Partie fixe + stream en ligne (++) actes, das, typaut um et dpdr des um |
+|    4|Standard   : Partie fixe + creation des tables actes, das et rsa_um                  |
+|    5|Standard+  : Partie fixe + creation des tables actes, das et rsa_um + stream (+)     |
+|    6|Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)    |
+
+
+```r
+ira(p,
+    typi = 4,
+    tolower_names = TRUE ) -> rsa21
+```
+
+## Import des RUM
+
+| Type|Import                                                          |
+|----:|:---------------------------------------------------------------|
+|    1|XLight    : Partie fixe                                         |
+|    2|Light     : Partie fixe + stream en ligne des actes, das et dad |
+|    3|Standard  : Partie fixe + table actes, das, dad                 |
+|    4|Standard+ : Partie fixe + stream + table actes, das, dad        |
+
+
+
+```r
+rum21<- irum(p,
+            typi = 4,
+            tolower_names = TRUE )
+```
+
+
+## Import du fichier TRA
+
+Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.
+
+Il comprend un lien entre :
+- clé rsa,
+- numéro de rss, 
+- numéro de sejour (nas),
+- date d’entrée
+- date de sortie du séjour
+
+L'import se fait en 2 parties : import du fichier avec la fonction ```itra```, ajout des colonnes dans la table des rsa ```inner_tra``` .
+
+```r
+itra(p) -> tra
+
+inner_tra(rsa15$rsa, tra) -> rsa15$rsa
+```
+
+### Récupérer des référentiels sur referime
+
+Le package [referime](https://github.com/NamikTaright/referime) maintenu par Namik Taright alimente le serveur de référentiels du DIM de l'AP-HP. Il est la base d'un webservice utilisé par différents entité de l'institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l'analyse des données PMSI.
+
+### Fichier descriptif des UMA sur referime
+
+Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieur ligne pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` .
+
+
+```r
+library(referime)
+
+ium<- referime::get_table("amurm_2021")
+ium <- ium %>% dplyr::rename(cdurm = uma_ej) %>%
+  dplyr::distinct(cdurm,.keep_all = T)
+```
+
+
+
+#### DMS de la base nationale
+
+La colonne ```anseqta``` contient l'information sur l'année de version du tarif. Elle comprend :
+
+- les séjours de l'année n à partir du 1er mars 
+- les séjours de l'année n+1 jusqu'au 28/29 février
+
+Attention, par construction le calcul des dms sur la base nationale ne peut être en cours d'année, pour l'année en cours on se contente d'utiliser les dms calculées sur l'année précédente.
+
+
+```r
+#dms base nationales
+dms_nationales <- referime::get_table("ghm_dms_nationales")
+
+#2021 pas encore présente dans le fichier, on utilise 2020
+dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
+  dplyr::mutate(anseqta = "2021") %>%
+  dplyr::bind_rows(dms_nationales,.)
+```
+
+#### Autres références utiles
+
+```r
+#Actes CCAM : icr, actes chriurgicaux
+icr <- referime::get_table("ccam_icr") %>% filter(activite  == 1)
+rgp <- referime::get_table("ccam_regroupement") %>% filter(activite  == 1, regroupement == "ADC")
+acte_chir <- rgp %>% select(code) %>% inner_join(icr, by = c("code"))
+cim <- referime::get_table("cim") %>%
+  dplyr::distinct(code,.keep_all = TRUE) %>%
+  dplyr::select(code,lib_court)
+#Regroupements GHM
+regroupement <- referime::get_table('ghm_ghm_regroupement')
+```
+
+
+## Création d'une table contenant la plus part des informations utiles
+
+Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s'y retrouver nous vous proposons de créer une table pivot constutées par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l'analyse de l'activité.
+
+
+
+```r
+data21 <- rsa21$ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
+    dplyr::inner_join( .,
+                       rsa21$rsa %>% dplyr::select(cle_rsa,noseqrum,anseqta,ansor,moissor,ghm,noghs,sexe,agean,
+                                  agejr,echpmsi,prov,schpmsi,dest,nbrum,duree)) 
+data21 <- data21 %>%
+    dplyr::left_join( .,
+                     rum21$rum )
+
+data21 <- data21 %>%
+  dplyr::left_join( .,
+                   amurm21 %>% select( gh, cdurm, typaut, mode_hospit, nohop, 
+                                       lib_hop,lib_cc9_uma,spe_uma,lib_spe_uma) ) 
+```
+
+Ajout des dms dans la base nationale. Attention jointure complexe : les dms de la base nationale sont préférentiellement calculées au niveau GHS mais dans certain cas on préfèrera le niveau GHM (soins palialits par exemple). Enfin les DMS ne sont pas calculées pour tous les GHM (séances par exemple). Au final on procède en 3 étapes
+- table intermédaire 1 résultat de l'appariement des rum au GHM
+- table intermédaire 2 résultat de l'appariement des rum au GHS
+- ajout des séjours n'appartenant à aucune des 2 tables ci dessus
+
+
+
+```r
+data21<- data21 %>% mutate(id = 1:nrow(df))
+
+data21_dms1<-inner_join(data21 %>% rename(ghs = noghs),
+                    dms_nationales%>%filter(ghs!="") %>% dplyr::distinct(anseqta,ghs,.keep_all = T) )
+
+#Merge rsa, dms pour les cas ou la référence dans ghm_dms_nationales = ghm
+data21_dms2<-inner_join(data21%>%rename(ghs = noghs),
+                    dms_nationales%>%filter(ghs=="") %>% dplyr::select(-ghs) %>%  dplyr::distinct(anseqta,ghm,.keep_all = T)  )
+
+
+data21_2 <- dplyr::bind_rows(data21_dms1,data21_dms2)
+data21 <- dplyr::bind_rows(data21_2, data21 %>% dplyr::filter(! id %in% c(data21_dms1$id,data21_dms2$id) ) )
+
+rm(data21_dms1,data21_dms2,data21_2) 
+```

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Language R : les fondamentaux | Analyser les données PMSI avec R</title>
   <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
-  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Language R : les fondamentaux | Analyser les données PMSI avec R" />
   <meta property="og:type" content="book" />
@@ -143,11 +143,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html"><i class="fa fa-check"></i><b>2</b> Language R : les fondamentaux</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#elements-de-base-de-la-programmation-en-r"><i class="fa fa-check"></i><b>2.1</b> Elements de base de la programmation en R</a></li>
+<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#instructions"><i class="fa fa-check"></i><b>2.1</b> Instructions</a></li>
+<li class="chapter" data-level="2.2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#objets"><i class="fa fa-check"></i><b>2.2</b> Objets</a></li>
+<li class="chapter" data-level="2.3" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#fonctions"><i class="fa fa-check"></i><b>2.3</b> Fonctions</a></li>
+<li class="chapter" data-level="2.4" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#le-format-des-objets"><i class="fa fa-check"></i><b>2.4</b> Le format des objets</a></li>
+<li class="chapter" data-level="2.5" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#la-grammaire-dplyr"><i class="fa fa-check"></i><b>2.5</b> La grammaire dplyr</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><i class="fa fa-check"></i><b>3</b> Premiers pas avec les données PMSI importées avec pmeasyr</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données"><i class="fa fa-check"></i><b>3.1</b> Import des données</a></li>
+<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données-mco"><i class="fa fa-check"></i><b>3.1</b> Import des données MCO</a></li>
+<li class="chapter" data-level="3.2" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#premières-analyses"><i class="fa fa-check"></i><b>3.2</b> Premières analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html"><i class="fa fa-check"></i><b>4</b> pmeasyr : Imports MCO</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#les-différents-fichiers-à-importer"><i class="fa fa-check"></i><b>4.1</b> Les différents fichiers à importer</a></li>
+<li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
+<li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
+<li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.5.1</b> Récupérer des référentiels sur referime</a></li>
+<li class="chapter" data-level="4.5.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.5.2</b> Fichier descriptif des UMA sur referime</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.6</b> Création d’une table contenant la plus part des informations utiles</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -171,9 +189,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="language-r-les-fondamentaux" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Language R : les fondamentaux</h1>
-<div id="elements-de-base-de-la-programmation-en-r" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Elements de base de la programmation en R</h2>
-<p>Le premier point est que R en tant que langage interprété (en opposition à un langage compilé) peut être utilisé pour envoyer des instructions qui sont exécutées directement par la machine.
+<div id="instructions" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Instructions</h2>
+<p>R en tant que langage interprété (en opposition à un langage compilé) peut être utilisé pour envoyer des instructions qui sont exécutées directement par la machine.
 Il existe donc un interpréteur R que l’on peut utiliser tel quel, par exemple comme une machine à calculer.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="language-r-les-fondamentaux.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span></code></pre></div>
 <pre><code>## [1] 0.15</code></pre>
@@ -184,10 +202,13 @@ Il existe donc un interpréteur R que l’on peut utiliser tel quel, par exemple
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="language-r-les-fondamentaux.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Dès lors que nos instructions vont se complexifier on voit qu’il sera utile de garder la trace de nos actions et c’est la raison pour laquelle R s’utilise avec un éditeur de code qui permet de sauvegarder l’ensemble des instructions données à la machine.
-Celles-ci pourront ensuite être envoyées en une seule fois, voire s’exécuter automatiquement avec l’utilisation d’un planificateur de tâches.
-RStudio permet de proposer un environnement de travail intégré qui permet de réunir ces 2 fonctions principales : interpréteur et éditeur de code.
+Celles-ci pourront ensuite être envoyées en une seule fois, voire s’exécuter automatiquement avec l’utilisation d’un planificateur de tâches.</p>
+<p>RStudio propose un environnement de travail intégré qui permet de réunir ces 2 fonctions principales : interpréteur et éditeur de code.
 Cette intégration permet d’envoyer simplement le code écrit dans l’éditeur à l’interpréteur.
-C’est cette dernière façon d’écrire du code que nous allons utiliser et qui va nous permettre d’utiliser les programmes préparer pour cette introduction.</p>
+C’est cette dernière façon d’écrire du code que nous allons utiliser et qui va nous permettre d’utiliser les programmes préparés pour cette introduction.</p>
+</div>
+<div id="objets" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Objets</h2>
 <p>En complément de l’exécution d’instruction, R permet de stocker des données dans la mémoire de l’ordinateur.
 Pour cela R, n’utilise que la mémoire RAM, la mémoire de travail.
 Ce principe permet de garantir une exécution rapide des instructions qui utilise les données enregistrées en mémoire, à l’inverse il s’agit d’une mémoire dont la taille est limitée et qui rend donc l’utilisation du langage R plus complexe pour le traitement de données volumineuses.
@@ -207,6 +228,9 @@ Il existe d’autres types d’objets qui permettent de donner au langage puissa
 <p>Toutes les instructions (statements) qui permettent de créer des objets (<strong>assignment</strong> statements) sont de la forme :</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="language-r-les-fondamentaux.html#cb11-1" aria-hidden="true" tabindex="-1"></a>nom_objet <span class="ot">&lt;-</span> value</span></code></pre></div>
 <p>Le signe <code>=</code> fonctionne également, mais il est quelque peu trompeur et il est communément admis que pour bien marqué le fait qu’il s’agit de donner un nom à un objet stocké en mémoire, on préfère utiliser <code>&lt;-</code> .</p>
+</div>
+<div id="fonctions" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Fonctions</h2>
 <p>L’ensemble du langage R tient donc sur ce paradigme de nom et de type d’objets et sur le fait que les objets sont accessibles par leur nom. Les fonctions constituent un type d’objets à part. Dans la mesure où, en règle générale, elles reçoivent des arguments sur lesquels on va appliquer des transformations, elle s’appelle avec des parenthèses.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="language-r-les-fondamentaux.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(<span class="at">arg1 =</span> val1, <span class="at">arg2 =</span> val2, ...)</span></code></pre></div>
 <p>Il n’en reste pas moins qu’elles sont des objets, stockées en mémoire, accessibles à tout moment par leur nom, lorsqu’elles sont appelées, elles réalisent l’ensemble des instructions qu’elles contiennent et renvoie leur résultat.</p>
@@ -216,6 +240,9 @@ Il existe d’autres types d’objets qui permettent de donner au langage puissa
 <p>Les fonctions des différents packages peuvent néanmoins être appelées directement dès lors que l’on référence dans l’appel le nom du package :</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="language-r-les-fondamentaux.html#cb14-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">irsa</span>(p)</span></code></pre></div>
 <p>Cette fonction du package <code>pmeasyr</code> permet de réalisé l’import des RSA dans R. Avant de réaliser concrètement cet import, voyons plus en détails comment s’ organise l’enregistrement des données.</p>
+</div>
+<div id="le-format-des-objets" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Le format des objets</h2>
 <p>Chaque donnée possède un format de base qui permet de stocker l’information. R distingue 5 types de données :</p>
 <ul>
 <li>caractère</li>
@@ -224,10 +251,12 @@ Il existe d’autres types d’objets qui permettent de donner au langage puissa
 <li>les nombres complexes</li>
 <li>une variable logique oui/non</li>
 </ul>
-<p>Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces différentes formes on peut constuituer d’autres types de données unitaires en particulier :
-- les dates et datatime qui sont en réalité stockées sous forme numérique qui constue l’écart par rapport à un référentiel (par exemple le nombre de jour qui sépare la date du jour du 1er janvier 1970)
-- les facteurs
-Nous approfondirons ces différentes types au cours du livre.</p>
+<p>Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces différentes formes on peut constuituer d’autres types de données unitaires en particulier :</p>
+<ul>
+<li>les dates et datatime qui sont en réalité stockées sous forme numérique qui constue l’écart par rapport à un référentiel (par exemple le nombre de jour qui sépare la date du jour du 1er janvier 1970)</li>
+<li>les facteurs
+Nous approfondirons ces différentes types au cours du livre.</li>
+</ul>
 <p>Le niveau suivant le vecteur qui correspond vraiment au cœur du langage. L’instruction <code>:</code> permet de créer facilement des séquences :</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="language-r-les-fondamentaux.html#cb15-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
 <p>Ils sont bien sur constitués par un ensemble de données élémentaires d’un certain type. Un vecteur n’est donc constitué que d’un seul type de données. Cela permet en particulier de garantir que des opération numérique pourront être réalisée d’un bloc sur un vecteur, par exemple une addition :</p>
@@ -277,6 +306,9 @@ Nous approfondirons ces différentes types au cours du livre.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="language-r-les-fondamentaux.html#cb43-1" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>x <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>##  [1]  6  7  8  9 10 11 12 13 14 15</code></pre>
 <p>On pourrait développer les nombreuses actions qui peuvent réalisée avec les dataframe dans le paradigme historique du langage R. Nous allons néamoins faire un saut pour se concentrer directement sur les nouvelles méthodes de manipulation des objets en R dans le paradigme <code>tidyverse</code> qui propose un ensemble de packages permettant de faciliter l’analyse de données.</p>
+</div>
+<div id="la-grammaire-dplyr" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> La grammaire dplyr</h2>
 <p>En premier lieu, nous introduisons une fontion particulière qui a pour but de tenir compte du fait que l’on doit en pratique rarement n’utiliser qu’une seule instruction, et qu’a l’inverse on enchaine les instructions sur un même objet, qui se transforme à chaque étape. Cette opérateur qui va vous sembler atypique au premier abord, va rapidement devenir votre meilleur ami. Il a été introduit dans le package magrittr, chargeons le dans l’environement de travail de façon à</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="language-r-les-fondamentaux.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span> <span class="ot">&lt;-</span> magrittr<span class="sc">::</span><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span></span></code></pre></div>
 <p>L’opérateur pipe permet donc d’enchainter les instructions, ci dessous deux instruction équivalentes :</p>

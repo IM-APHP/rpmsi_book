@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Analyser les données PMSI avec R</title>
   <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
-  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Analyser les données PMSI avec R" />
   <meta property="og:type" content="book" />
@@ -143,11 +143,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html"><i class="fa fa-check"></i><b>2</b> Language R : les fondamentaux</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#elements-de-base-de-la-programmation-en-r"><i class="fa fa-check"></i><b>2.1</b> Elements de base de la programmation en R</a></li>
+<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#instructions"><i class="fa fa-check"></i><b>2.1</b> Instructions</a></li>
+<li class="chapter" data-level="2.2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#objets"><i class="fa fa-check"></i><b>2.2</b> Objets</a></li>
+<li class="chapter" data-level="2.3" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#fonctions"><i class="fa fa-check"></i><b>2.3</b> Fonctions</a></li>
+<li class="chapter" data-level="2.4" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#le-format-des-objets"><i class="fa fa-check"></i><b>2.4</b> Le format des objets</a></li>
+<li class="chapter" data-level="2.5" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#la-grammaire-dplyr"><i class="fa fa-check"></i><b>2.5</b> La grammaire dplyr</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><i class="fa fa-check"></i><b>3</b> Premiers pas avec les données PMSI importées avec pmeasyr</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données"><i class="fa fa-check"></i><b>3.1</b> Import des données</a></li>
+<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données-mco"><i class="fa fa-check"></i><b>3.1</b> Import des données MCO</a></li>
+<li class="chapter" data-level="3.2" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#premières-analyses"><i class="fa fa-check"></i><b>3.2</b> Premières analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html"><i class="fa fa-check"></i><b>4</b> pmeasyr : Imports MCO</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#les-différents-fichiers-à-importer"><i class="fa fa-check"></i><b>4.1</b> Les différents fichiers à importer</a></li>
+<li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
+<li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
+<li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-du-fichier-tra"><i class="fa fa-check"></i><b>4.5</b> Import du fichier TRA</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.5.1</b> Récupérer des référentiels sur referime</a></li>
+<li class="chapter" data-level="4.5.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.5.2</b> Fichier descriptif des UMA sur referime</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.6</b> Création d’une table contenant la plus part des informations utiles</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -175,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="bienvenu" class="section level1 unnumbered">
 <h1>Bienvenu</h1>
-<p>Les premier chapitres du livre sont une compiltation/traduction de livres numériques que nous vous conseillons de lire pour aller plus loin :</p>
+<p>Les premiers chapitres du livre sont une compiltation/traduction de livres numériques que nous vous conseillons de lire pour aller plus loin :</p>
 <ul>
 <li><a href="https://r4ds.had.co.nz/">R for Data Science</a></li>
 <li><a href="https://adv-r.hadley.nz">Advanced R</a></li>

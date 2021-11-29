@@ -42,6 +42,7 @@ typeof(rum21)
 names(rum21)
 ```
 
+## Premières analyses
 
 Dans cette première partie nous allons tester différents calcul sur les RSA avec le formalisme de dplyr. Commençons par charger le package de façon à ne pas avoir à repéter le préfix `dplyr::` :
 

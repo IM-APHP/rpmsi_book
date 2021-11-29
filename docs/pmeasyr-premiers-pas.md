@@ -1,8 +1,13 @@
 # Premiers pas avec les données PMSI importées avec pmeasyr
 
-## Import des données
+## Import des données MCO
 
 La première étape de choisir un répertoire de travail et d'enregistrer vos fichiers de remontées dans ce répertoire. Nosu prendrons ici les recommandations de Guillaume : `'~/Documents/data/mco` .
+
+Les noms des fichiers en sortie de GENRSA sont de la forme :
+
+- finess.annee.mois.date_et_heure_de_creation.in.zip
+- finess.annee.mois.date_et_heure_de_creation.out.zip
 
 Ensuite on dézippe l'archive avec la fonction adzip :
 
@@ -37,6 +42,7 @@ typeof(rum21)
 names(rum21)
 ```
 
+## Premières analyses
 
 Dans cette première partie nous allons tester différents calcul sur les RSA avec le formalisme de dplyr. Commençons par charger le package de façon à ne pas avoir à repéter le préfix `dplyr::` :
 
@@ -48,7 +54,7 @@ library(dplyr)
 Sélectionner les rum dont le diagnostic est I10 :
 
 ```r
-rum21$rum %>% dplyr::filter(dp == "I10")
+rum21$rum %>% filter(dp == "I10")
 ```
 
 Sélectionner les rum dont le diagnostic est I10 et changer le format de la date pour avoir le mois de sortie.
@@ -66,8 +72,8 @@ On peut donc changer le format d'une date en R avec la fonction `format`. Ci des
 Sélectionner les rum dont le diagnostic est I10 et compter le nombre de résumé par mois, fonction `n()` permet de compte le nombre de ligne dans le tableau de données, ici groupé par mois :
 
 ```r
-rum21$rum %>% dplyr::filter(dp == "I10") %>%
-   mutate(moissor = format(d8soue,"%m")  ) %>%
+rum21$rum %>% filter(dp == "I10") %>%
+  mutate(moissor = format(d8soue,"%m")  ) %>%
   group_by(moissor) %>%
   summarise(nb = n())
 ```
@@ -85,7 +91,7 @@ dates_sejours
 ```
 
 
-Réaliser la jointure entre les RUM et les date d'entrée/sortie du séjours pour faire un calcul du nombre de RUM par mois de sortie du séjour :
+Réaliser la jointure entre les RUM et les dates d'entrée/sortie du séjours pour faire un calcul du nombre de RUM par mois de sortie du séjour :
 
 
 ```r

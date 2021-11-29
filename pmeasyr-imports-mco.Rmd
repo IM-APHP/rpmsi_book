@@ -1,11 +1,8 @@
-# Imports pmeasyr
+# pmeasyr : Imports MCO
 
 [pmeasyrr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco))
 
-
-## MCO 
-
-### Les différents fichiers à importer 
+## Les différents fichiers à importer 
 |Nom       |Fonction                           |
 |:---------|:----------------------------------|
 |[irsa](https://guillaumepressiat.github.io/pmeasyr/reference/irsa.html)      |~ MCO - Import des RSA             |
@@ -18,8 +15,19 @@
 |[ipo](https://guillaumepressiat.github.io/pmeasyr/reference/ipo.html)       |~ MCO - Import des PO              |
 |[iano_mco](https://guillaumepressiat.github.io/pmeasyr/reference/iano_mco.html)  |~ MCO - Import des Anohosp         |
 
+## Noyau pmeasyr
 
-### Imports des RSA
+Comme les différents paramaères de l'import que nous avons vu au chapitre précéndents sont réutilisés plusieurs fois, nous pouvons créer un objet pmeasyr destiné à stocker toutes ces informarions, appelé, noyau :
+
+```{r eval = FALSE}
+p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
+                annee = 2021, 
+                mois = 8, 
+                path = 'C:/Users/3056269/Documents/data/mco')
+
+                
+```
+## Imports des RSA
 
  Type|Import                                                                               |
 |----:|:------------------------------------------------------------------------------------|
@@ -30,7 +38,17 @@
 |    5|Standard+  : Partie fixe + creation des tables actes, das et rsa_um + stream (+)     |
 |    6|Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)    |
 
-### Import des RUM
+```{r eval = FALSE}
+
+ira(p,
+    typi = 4,
+    tolower_names = TRUE ) -> rsa21
+
+
+
+```
+
+## Import des RUM
 
 | Type|Import                                                          |
 |----:|:---------------------------------------------------------------|
@@ -39,7 +57,19 @@
 |    3|Standard  : Partie fixe + table actes, das, dad                 |
 |    4|Standard+ : Partie fixe + stream + table actes, das, dad        |
 
-### Import du fichier TRA
+
+```{r eval = FALSE}
+
+rum21<- irum(p,
+            typi = 4,
+            tolower_names = TRUE )
+
+
+
+```
+
+
+## Import du fichier TRA
 
 Le fichier TRA est un fichier du out qui permet de relier les données anonymes du out aux données du in.
 
@@ -59,10 +89,24 @@ inner_tra(rsa15$rsa, tra) -> rsa15$rsa
 
 ```
 
+### Récupérer des référentiels sur referime
+
+Le package [referime](https://github.com/NamikTaright/referime) maintenu par Namik Taright alimente le serveur de référentiels du DIM de l'AP-HP. Il est la base d'un webservice utilisé par différents entité de l'institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l'analyse des données PMSI.
+
 ### Fichier descriptif des UMA sur referime
 
+Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieur ligne pour une seule UMA. Dans ce fichier les UMA entité juridique sont dénommées ```uma_ej``` alors que dans le nom de cette variable importée avec ```pmeasyr``` est ```cdurm``` .
 
-### Récupérer des référentiels sur referime
+```{r eval = FALSE}
+library(referime)
+
+ium<- referime::get_table("amurm_2021")
+ium <- ium %>% dplyr::rename(cdurm = uma_ej) %>%
+  dplyr::distinct(cdurm,.keep_all = T)
+
+```
+
+
 
 #### DMS de la base nationale
 
@@ -98,7 +142,11 @@ regroupement <- referime::get_table('ghm_ghm_regroupement')
 ```
 
 
-### Création d'une table contenant la plus part des informations utiles
+## Création d'une table contenant la plus part des informations utiles
+
+Les données du in et out GENRSA ont chacune leur utilité, mais elles sont en partie redondantes. Afin de mieux s'y retrouver nous vous proposons de créer une table pivot constutées par la jointure de plusieurs tables et qui contiendra les principales données utiles pour l'analyse de l'activité.
+
+
 ```{r eval = FALSE}
 data21 <- rsa21$ano %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
     dplyr::inner_join( .,

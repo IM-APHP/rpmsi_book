@@ -1,8 +1,7 @@
 # Language R : les fondamentaux
 
-## Elements de base de la programmation en R
-
-Le premier point est que R en tant que langage interprété (en opposition à un langage compilé) peut être utilisé pour envoyer des instructions qui sont exécutées directement par la machine.
+## Instructions
+R en tant que langage interprété (en opposition à un langage compilé) peut être utilisé pour envoyer des instructions qui sont exécutées directement par la machine.
 Il existe donc un interpréteur R que l'on peut utiliser tel quel, par exemple comme une machine à calculer.
 
 
@@ -40,10 +39,13 @@ sin(pi / 2)
 
 Dès lors que nos instructions vont se complexifier on voit qu'il sera utile de garder la trace de nos actions et c'est la raison pour laquelle R s'utilise avec un éditeur de code qui permet de sauvegarder l'ensemble des instructions données à la machine.
 Celles-ci pourront ensuite être envoyées en une seule fois, voire s'exécuter automatiquement avec l'utilisation d'un planificateur de tâches.
-RStudio permet de proposer un environnement de travail intégré qui permet de réunir ces 2 fonctions principales : interpréteur et éditeur de code.
-Cette intégration permet d'envoyer simplement le code écrit dans l'éditeur à l'interpréteur.
-C'est cette dernière façon d'écrire du code que nous allons utiliser et qui va nous permettre d'utiliser les programmes préparer pour cette introduction.
 
+
+RStudio propose un environnement de travail intégré qui permet de réunir ces 2 fonctions principales : interpréteur et éditeur de code.
+Cette intégration permet d'envoyer simplement le code écrit dans l'éditeur à l'interpréteur.
+C'est cette dernière façon d'écrire du code que nous allons utiliser et qui va nous permettre d'utiliser les programmes préparés pour cette introduction.
+
+## Objets
 En complément de l'exécution d'instruction, R permet de stocker des données dans la mémoire de l'ordinateur.
 Pour cela R, n'utilise que la mémoire RAM, la mémoire de travail.
 Ce principe permet de garantir une exécution rapide des instructions qui utilise les données enregistrées en mémoire, à l'inverse il s'agit d'une mémoire dont la taille est limitée et qui rend donc l'utilisation du langage R plus complexe pour le traitement de données volumineuses.
@@ -79,7 +81,7 @@ nom_objet <- value
 
 Le signe `=` fonctionne également, mais il est quelque peu trompeur et il est communément admis que pour bien marqué le fait qu'il s'agit de donner un nom à un objet stocké en mémoire, on préfère utiliser `<-` .
 
-
+## Fonctions
 L'ensemble du langage R tient donc sur ce paradigme de nom et de type d'objets et sur le fait que les objets sont accessibles par leur nom. Les fonctions constituent un type d’objets à part. Dans la mesure où, en règle générale, elles reçoivent des arguments sur lesquels on va appliquer des transformations, elle s’appelle avec des parenthèses. 
 
 
@@ -107,6 +109,7 @@ pmeasyr::irsa(p)
 
 Cette fonction du package `pmeasyr` permet de réalisé l’import des RSA dans R. Avant de réaliser concrètement cet import, voyons plus en détails comment s' organise l’enregistrement des données.
 
+## Le format des objets
 Chaque donnée possède un format de base qui permet de stocker l’information. R distingue 5 types de données :
 
 - caractère
@@ -116,6 +119,7 @@ Chaque donnée possède un format de base qui permet de stocker l’information.
 - une variable logique oui/non
 
 Il en existe en réalité une 6ème forme qui ne sera pas abordée ici. Avec ces différentes formes on peut constuituer d'autres types de données unitaires en particulier :
+
 - les dates et datatime qui sont en réalité stockées sous forme numérique qui constue l'écart par rapport à un référentiel (par exemple le nombre de jour qui sépare la date du jour du 1er janvier 1970)
 - les facteurs
 Nous approfondirons ces différentes types au cours du livre.
@@ -270,6 +274,7 @@ x$x + 5
 
 On pourrait développer les nombreuses actions qui peuvent réalisée avec les dataframe dans le paradigme historique du langage R. Nous allons néamoins faire un saut pour se concentrer directement sur les nouvelles méthodes de manipulation des objets en R dans le paradigme `tidyverse` qui propose un ensemble de packages permettant de faciliter l'analyse de données.
 
+## La grammaire dplyr
 En premier lieu, nous introduisons une fontion particulière qui a pour but de tenir compte du fait que l'on doit en pratique rarement n'utiliser qu'une seule instruction, et qu'a l'inverse on enchaine les instructions sur un même objet, qui se transforme à chaque étape. Cette opérateur qui va vous sembler atypique au premier abord, va rapidement devenir votre meilleur ami. Il a été introduit dans le package magrittr, chargeons le dans l'environement de travail de façon à 
 
 

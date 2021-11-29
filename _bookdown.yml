@@ -6,6 +6,7 @@ rmd_files: [
   "intro.Rmd",
   "r-fondamentaux.Rmd",
   "pmeasyr-premiers-pas.Rmd",
+  "pmeasyr-imports-mco.Rmd"
 ]
 
 output_dir: "docs"
