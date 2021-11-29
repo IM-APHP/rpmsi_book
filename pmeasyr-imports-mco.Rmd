@@ -1,6 +1,6 @@
 # pmeasyr : Imports MCO
 
-[pmeasyrr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco))
+
 
 ## Les différents fichiers à importer 
 |Nom       |Fonction                           |
@@ -15,6 +15,7 @@
 |[ipo](https://guillaumepressiat.github.io/pmeasyr/reference/ipo.html)       |~ MCO - Import des PO              |
 |[iano_mco](https://guillaumepressiat.github.io/pmeasyr/reference/iano_mco.html)  |~ MCO - Import des Anohosp         |
 
+Source : [pmeasyr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco)
 
 ## Noyau pmeasyr
 
@@ -43,6 +44,8 @@ p<-pmeasyr::noyau_pmeasyr(finess = 750712184,
 |    5|Standard+  : Partie fixe + creation des tables actes, das et rsa_um + stream (+)     |
 |    6|Standard++ : Partie fixe + creation des tables actes, das et rsa_um + stream (++)    |
 
+Source : [pmeasyr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco)
+
 ```{r eval = FALSE}
 pmeasyr::adezip(p,
                 liste = c("rsa","tra"), 
@@ -64,6 +67,8 @@ pmeasyr::irsa(p,
 |    2|Light     : Partie fixe + stream en ligne des actes, das et dad |
 |    3|Standard  : Partie fixe + table actes, das, dad                 |
 |    4|Standard+ : Partie fixe + stream + table actes, das, dad        |
+
+Source : [pmeasyr-book](https://guillaumepressiat.github.io/pmeasyr-book/import-des-donn%C3%A9es.html#mco)
 
 
 ```{r eval = FALSE}
