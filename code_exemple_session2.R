@@ -1,3 +1,6 @@
+`%+%` <- function(x,y){paste0(x,y)}
+`%>%` <- magrittr::`%>%`
+
 #Noyau de paramètre pmeasyr
 
 # Définir le chemin générique des données
