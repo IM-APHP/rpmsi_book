@@ -66,8 +66,12 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cl
   dplyr::left_join( .,
                     dplyr::tbl( connection_db, "mco_" %+% an %+% "_rum_rum" ) %>%  
                       dplyr::left_join(.,  dplyr::tbl( connection_db, "mco_" %+% an %+% "_ium" ) %>%
-                                         dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, lib_hop, uma,lib_uma, lib_cc9_uma,spe_uma,lib_spe_uma,
-                                                        ua, lib_ua,lib_cc9_ua, spe_ua, lib_spe_ua, serv,lib_service, pole, lib_pole) ) ) %>%
+                                         dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, lib_hop, uma,lib_uma,
+                                                        lib_cc9_uma,spe_uma,lib_spe_uma,
+                                                        ua, lib_ua,lib_cc9_ua, spe_ua, lib_spe_ua,
+                                                        serv,lib_service, pole, lib_pole) ) ) -> query
 
   
-  dplyr::collect() -> df
+query %>% dplyr::show_query()
+
+query %>% dplyr::collect() -> df

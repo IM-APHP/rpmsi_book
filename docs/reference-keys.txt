@@ -25,7 +25,3 @@ pmeasyr-imports-mco-dans-une-base-de-données
 installation-de-la-librarie-duckdb-pour-r
 création-dune-connexion
 imports-pmeaysr
-pmeasyr-imports-mco-dans-une-base-de-données-1
-les-variables-diagnosctics-dans-la-table-rum
-la-table-diagnostics-des-rum
-pmeasyr-imports-mco-dans-une-base-de-données-2

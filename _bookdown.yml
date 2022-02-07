@@ -8,8 +8,8 @@ rmd_files: [
   "pmeasyr-premiers-pas.Rmd",
   "pmeasyr-imports-mco.Rmd",
   "pmeasyr-imports-base-de-donnees.Rmd",
-  "requetes-selection-sejours.Rmd",
-  "calcul-indicateurs-activite.Rmd",
+  #"requetes-selection-sejours.Rmd",
+  #"calcul-indicateurs-activite.Rmd",
 
 ]
 
