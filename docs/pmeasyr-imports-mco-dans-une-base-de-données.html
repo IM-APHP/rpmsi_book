@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R</title>
+  <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/cover.png" />
+  <meta property="og:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="github-repo" content="IM-APHP/rpmsi_book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R" />
+  
+  <meta name="twitter:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
+  <meta name="twitter:image" content="/cover.png" />
+
+<meta name="author" content="Rémi Flicoteaux" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pmeasyr-imports-mco.html"/>
+<link rel="next" href="pmeasyr-imports-mco-dans-une-base-de-données-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Analyser les données PMSI avec R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenu</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#les-notions-et-concepts-que-vous-aller-acquérir"><i class="fa fa-check"></i><b>1.1</b> Les notions et concepts que vous aller acquérir</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html"><i class="fa fa-check"></i><b>2</b> Language R : les fondamentaux</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#instructions"><i class="fa fa-check"></i><b>2.1</b> Instructions</a></li>
+<li class="chapter" data-level="2.2" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#objets"><i class="fa fa-check"></i><b>2.2</b> Objets</a></li>
+<li class="chapter" data-level="2.3" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#fonctions"><i class="fa fa-check"></i><b>2.3</b> Fonctions</a></li>
+<li class="chapter" data-level="2.4" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#le-format-des-objets"><i class="fa fa-check"></i><b>2.4</b> Le format des objets</a></li>
+<li class="chapter" data-level="2.5" data-path="language-r-les-fondamentaux.html"><a href="language-r-les-fondamentaux.html#la-grammaire-dplyr"><i class="fa fa-check"></i><b>2.5</b> La grammaire dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><i class="fa fa-check"></i><b>3</b> Premiers pas avec les données PMSI importées avec pmeasyr</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#import-des-données-mco"><i class="fa fa-check"></i><b>3.1</b> Import des données MCO</a></li>
+<li class="chapter" data-level="3.2" data-path="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html"><a href="premiers-pas-avec-les-données-pmsi-importées-avec-pmeasyr.html#premières-analyses"><i class="fa fa-check"></i><b>3.2</b> Premières analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html"><i class="fa fa-check"></i><b>4</b> pmeasyr : Imports MCO</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#les-différents-fichiers-à-importer"><i class="fa fa-check"></i><b>4.1</b> Les différents fichiers à importer</a></li>
+<li class="chapter" data-level="4.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#noyau-pmeasyr"><i class="fa fa-check"></i><b>4.2</b> Noyau pmeasyr</a></li>
+<li class="chapter" data-level="4.3" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#imports-des-rsa"><i class="fa fa-check"></i><b>4.3</b> Imports des RSA</a></li>
+<li class="chapter" data-level="4.4" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-rum"><i class="fa fa-check"></i><b>4.4</b> Import des RUM</a></li>
+<li class="chapter" data-level="4.5" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#import-des-fichiers-tra-et-ano"><i class="fa fa-check"></i><b>4.5</b> Import des fichiers TRA et ANO</a></li>
+<li class="chapter" data-level="4.6" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#table-pmeasyr-des-formats"><i class="fa fa-check"></i><b>4.6</b> Table pmeasyr des formats</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#récupérer-des-référentiels-sur-referime"><i class="fa fa-check"></i><b>4.6.1</b> Récupérer des référentiels sur referime</a></li>
+<li class="chapter" data-level="4.6.2" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#fichier-descriptif-des-uma-sur-referime"><i class="fa fa-check"></i><b>4.6.2</b> Fichier descriptif des UMA sur referime</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="pmeasyr-imports-mco.html"><a href="pmeasyr-imports-mco.html#création-dune-table-contenant-la-plus-part-des-informations-utiles"><i class="fa fa-check"></i><b>4.7</b> Création d’une table contenant la plus part des informations utiles</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pmeasyr-imports-mco-dans-une-base-de-données.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html"><i class="fa fa-check"></i><b>5</b> pmeasyr : Imports MCO dans une base de données</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="pmeasyr-imports-mco-dans-une-base-de-données.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#installation-de-la-librarie-duckdb-pour-r"><i class="fa fa-check"></i><b>5.0.1</b> Installation de la librarie duckdb pour R</a></li>
+<li class="chapter" data-level="5.0.2" data-path="pmeasyr-imports-mco-dans-une-base-de-données.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#création-dune-connexion"><i class="fa fa-check"></i><b>5.0.2</b> Création d’une connexion</a></li>
+<li class="chapter" data-level="5.0.3" data-path="pmeasyr-imports-mco-dans-une-base-de-données.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#imports-pmeaysr"><i class="fa fa-check"></i><b>5.0.3</b> Imports pmeaysr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pmeasyr-imports-mco-dans-une-base-de-données-1.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html"><i class="fa fa-check"></i><b>6</b> pmeasyr : Imports MCO dans une base de données</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pmeasyr-imports-mco-dans-une-base-de-données-1.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#les-variables-diagnosctics-dans-la-table-rum"><i class="fa fa-check"></i><b>6.1</b> Les variables diagnosctics dans la table RUM</a></li>
+<li class="chapter" data-level="6.2" data-path="pmeasyr-imports-mco-dans-une-base-de-données-1.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#la-table-diagnostics-des-rum"><i class="fa fa-check"></i><b>6.2</b> La table diagnostics des RUM</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="pmeasyr-imports-mco-dans-une-base-de-données-2.html"><a href="pmeasyr-imports-mco-dans-une-base-de-données-2.html"><i class="fa fa-check"></i><b>7</b> pmeasyr : Imports MCO dans une base de données</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyser les données PMSI avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pmeasyr-imports-mco-dans-une-base-de-données" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> pmeasyr : Imports MCO dans une base de données</h1>
+<p>Les données PMSI étant par nature volumineuses, il est parfois difficile de travailler avec des logiciels tels que R qui stockent les données dans la mémoire RAM de la machine. Une solution est d’utiliser des logiciels de bases de données qui permettent de stocker les données sur le disque dur et offre des solutions de requêtage optimiséees. Il existent de nombreux logiciels de gestion de bases de données, dont certains sont à la fois très simples à installer un ordinateur de bureau et facilement interfaçable avec R. Nous verrons dans ce chapitre une des solutions possibles (duckdb)[<a href="https://duckdb.org/" class="uri">https://duckdb.org/</a>].</p>
+<p>En règle générale ces logiciels utilisent le language de requête SQL. Mais afin de garantir une unité de la programmation avec R, les développeurs de la librarie <code>dplyr</code> ont prévu des interfaces entre R et le language SQL. On peut donc utiliser un de ces logiciels de base de données sans programmer en SQL en utilisant uniquement avec la librarie <code>dplyr</code> . Par ailleurs, le package <code>pmeasyr</code> propose des fonctions qui permettent d’importer les données dans la base de données, ce qui simplifie encore l’utilisation pour l’analyse de données PMSI volumineuses.</p>
+<p>En pratique, on utilise le package DBI, qui permet de se connecter en R à de nombreux logiciels de base de données, et qui est installé par défaut avec <code>dplyr</code> , et la package <code>duckdb</code> qui permet d’installer directement avec R à la fois l’application <code>duckdb</code> et le pilote de connexion R qui sera utilisé par <code>DBI</code>.</p>
+<div id="installation-de-la-librarie-duckdb-pour-r" class="section level3" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Installation de la librarie duckdb pour R</h3>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;duckdb&quot;</span>)</span>
+<span id="cb83-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement des packages et fonctions utiles</span></span>
+<span id="cb83-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pmeasyr)</span>
+<span id="cb83-5"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb83-6"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(referime)</span></code></pre></div>
+<p>Une base duckdb correspond à un fichier unique dont on déclare le chemin</p>
+</div>
+<div id="création-dune-connexion" class="section level3" number="5.0.2">
+<h3><span class="header-section-number">5.0.2</span> Création d’une connexion</h3>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Définition du répertoire de travail</span></span>
+<span id="cb84-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb84-2" aria-hidden="true" tabindex="-1"></a>path_db <span class="ot">&lt;-</span> <span class="st">&quot;D:/data/duckdb/pmsi_test.duckdb&quot;</span></span>
+<span id="cb84-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb84-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Parametrage de la connexion à la base de données</span></span>
+<span id="cb84-5"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb84-5" aria-hidden="true" tabindex="-1"></a>connection_db <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), path_db )</span></code></pre></div>
+</div>
+<div id="imports-pmeaysr" class="section level3" number="5.0.3">
+<h3><span class="header-section-number">5.0.3</span> Imports pmeaysr</h3>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># noyau pmeasyr</span></span>
+<span id="cb85-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> pmeasyr<span class="sc">::</span><span class="fu">noyau_pmeasyr</span>(</span>
+<span id="cb85-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">finess   =</span> <span class="st">&#39;750712184&#39;</span>,</span>
+<span id="cb85-5"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">annee =</span> <span class="dv">2021</span>,</span>
+<span id="cb85-6"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mois     =</span> <span class="dv">11</span>,</span>
+<span id="cb85-7"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">path     =</span> <span class="st">&#39;D:/data/mco/202111&#39;</span>,</span>
+<span id="cb85-8"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> F,</span>
+<span id="cb85-9"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">tolower_names =</span> T, <span class="co"># choix de noms de colonnes minuscules : T / F</span></span>
+<span id="cb85-10"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb85-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">lib =</span> F)</span></code></pre></div>
+<p>Les fonctions <code>pmeasyr::db_mco_out</code> et <code>pmeasyr::db_mco_in</code> permettent d’importer les principales tables à partir des fichiers de remontée.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb86-1" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">db_mco_out</span>(connection_db,  p,<span class="at">remove =</span> F, <span class="at">zip =</span> T) </span>
+<span id="cb86-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb86-3" aria-hidden="true" tabindex="-1"></a>pmeasyr<span class="sc">::</span><span class="fu">db_mco_in</span>(connection_db,  p,<span class="at">remove =</span> F, <span class="at">zip =</span> T) </span></code></pre></div>
+<p>Importer des informations sur les strcutures à partir de referime (tables amurm)</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb87-1" aria-hidden="true" tabindex="-1"></a>struct <span class="ot">&lt;-</span> referime<span class="sc">::</span><span class="fu">get_table</span>(<span class="st">&quot;amurm_2021&quot;</span>)</span>
+<span id="cb87-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb87-2" aria-hidden="true" tabindex="-1"></a>struct <span class="ot">&lt;-</span> struct <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">cdurm =</span> uma_ej) <span class="sc">%&gt;%</span></span>
+<span id="cb87-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(cdurm,<span class="at">.keep_all =</span> T)</span>
+<span id="cb87-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb87-5" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbWriteTable</span>(connection_db, <span class="st">&quot;mco_21_ium&quot;</span>,struct )</span></code></pre></div>
+<p>Visualiser le contenu de la table mco_21_rsa_rsa</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb88-1" aria-hidden="true" tabindex="-1"></a>an <span class="ot">=</span> <span class="dv">21</span></span>
+<span id="cb88-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb88-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">tbl</span>(connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_rsa_rsa&quot;</span>)</span></code></pre></div>
+<p>Pour l’instant les données restent dans la base de données et ne sont pas importer dans la mémoire comme traditionnellement en R. Les opération classique en SQL sont possible:
+- sélection des colonnes (clause SELECT en SQL) avec <code>dplyr::select</code>
+- appliquer des critères de sélection sur les données (clause WHERE en SQL) avec <code>dplyr::filter</code>
+- réaliser des jointure entre les tables (fonction JOIN en SQL) avec <code>dplyr::inner_join</code> , <code>dplyr::left_join</code>,<code>dplyr::right_join</code>,<code>dplyr::full_join</code></p>
+<p>Exemple de requêtes complexe utilisée dans le projet Tableau de bord fluidité des parcours</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">tbl</span>(connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_rsa_ano&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>( </span>
+<span id="cb89-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># any_of parce que les vars d&#39;eligibilite ne sont dans la table que pour 2021</span></span>
+<span id="cb89-5"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">tbl</span>(connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_rsa_rsa&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">&#39;cle_rsa&#39;</span>,<span class="st">&#39;noseqrum&#39;</span>,<span class="st">&#39;anseqta&#39;</span>,<span class="st">&#39;ansor&#39;</span>,<span class="st">&#39;moissor&#39;</span>,<span class="st">&#39;ghm&#39;</span>,<span class="st">&#39;noghs&#39;</span>,<span class="st">&#39;sexe&#39;</span>,</span>
+<span id="cb89-6"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-6" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="st">&#39;agean&#39;</span>,<span class="st">&#39;agejr&#39;</span>,<span class="st">&#39;echpmsi&#39;</span>,<span class="st">&#39;prov&#39;</span>,<span class="st">&#39;schpmsi&#39;</span>,<span class="st">&#39;dest&#39;</span>,<span class="st">&#39;nbrum&#39;</span>,<span class="st">&#39;duree&#39;</span>,<span class="st">&#39;cdgeo&#39;</span>,</span>
+<span id="cb89-7"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-7" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="st">&#39;ell_gradation&#39;</span>,<span class="st">&#39;surveillance_particuliere&#39;</span>,<span class="st">&#39;resererve_hosp&#39;</span>,<span class="st">&#39;rescrit_tarifaire&#39;</span>,</span>
+<span id="cb89-8"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-8" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="st">&#39;cat_nb_intervenants&#39;</span>))) ,</span>
+<span id="cb89-9"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-9" aria-hidden="true" tabindex="-1"></a>    . ) <span class="sc">%&gt;%</span> </span>
+<span id="cb89-10"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-11"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#type de séjours</span></span>
+<span id="cb89-12"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>( .,</span>
+<span id="cb89-13"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-13" aria-hidden="true" tabindex="-1"></a>                    dplyr<span class="sc">::</span><span class="fu">tbl</span>( connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_rum_rum&quot;</span> ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb89-14"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-14" aria-hidden="true" tabindex="-1"></a>                      dplyr<span class="sc">::</span><span class="fu">left_join</span>(.,  dplyr<span class="sc">::</span><span class="fu">tbl</span>( connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_ium&quot;</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb89-15"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-15" aria-hidden="true" tabindex="-1"></a>                                         dplyr<span class="sc">::</span><span class="fu">select</span>( gh, cdurm, typaut, mode_hospit, nohop, lib_hop, uma,lib_uma, lib_cc9_uma,spe_uma,lib_spe_uma,</span>
+<span id="cb89-16"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb89-16" aria-hidden="true" tabindex="-1"></a>                                                        ua, lib_ua,lib_cc9_ua, spe_ua, lib_spe_ua, serv,lib_service, pole, lib_pole) ) ) <span class="ot">-&gt;</span> query</span></code></pre></div>
+<p>En pratique l’ensemble de ce code est transcodé en SQL par <code>dplyr</code> et envoyé à la base de données. Pour l’instant, il ne s’agit que de code SQL qui sont “testés” sur la base duckdb mais qui ne sont pas importées.</p>
+<p>Afin de faire des calcul plus complexes, nous devons importer les données dans R, cette opération est réalisée avec la fonction <code>dplyr::collect</code> .<br />
+Une fois</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb90-1" aria-hidden="true" tabindex="-1"></a>an <span class="ot">=</span> <span class="dv">21</span></span>
+<span id="cb90-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données.html#cb90-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">tbl</span>(connection_db, <span class="st">&quot;mco_&quot;</span> <span class="sc">%+%</span> an <span class="sc">%+%</span> <span class="st">&quot;_rsa_rsa&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pmeasyr-imports-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/pmeasyr-imports-base-de-donnees.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

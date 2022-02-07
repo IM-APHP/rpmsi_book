@@ -21,3 +21,11 @@ fichier-descriptif-des-uma-sur-referime
 dms-de-la-base-nationale
 autres-références-utiles
 création-dune-table-contenant-la-plus-part-des-informations-utiles
+pmeasyr-imports-mco-dans-une-base-de-données
+installation-de-la-librarie-duckdb-pour-r
+création-dune-connexion
+imports-pmeaysr
+pmeasyr-imports-mco-dans-une-base-de-données-1
+les-variables-diagnosctics-dans-la-table-rum
+la-table-diagnostics-des-rum
+pmeasyr-imports-mco-dans-une-base-de-données-2

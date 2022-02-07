@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Analyser les données PMSI avec R</title>
+  <title>6 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R</title>
   <meta name="description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
   <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Analyser les données PMSI avec R" />
+  <meta property="og:title" content="6 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="IM-APHP/rpmsi_book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Analyser les données PMSI avec R" />
+  <meta name="twitter:title" content="6 pmeasyr : Imports MCO dans une base de données | Analyser les données PMSI avec R" />
   
   <meta name="twitter:description" content="Ce livre numérique a pour objectif de vous faire découvrir comment le logiciel R pour vous permettre d’analyser efficacement les données PMSI. La première partie comprend une introduction rapide au language de programmation R avec l’apport des packages de la collection tidyverse. De part son utilité, nous avons également fait un rapide rappel de l’utilisation du logiciel git pour organiser le partage du code informatiquje. La suite du livre comprend une introduction à l’utilisation du package pmesayr qui ne remplace pas la lecture de l’excellent livre de Guillaume. Enfin, nous montrerons par l’exemple comment réaliser des projets d’analyse des données PMSI avec R" />
   <meta name="twitter:image" content="/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="pmeasyr-imports-mco-dans-une-base-de-données.html"/>
+<link rel="next" href="pmeasyr-imports-mco-dans-une-base-de-données-2.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -200,19 +200,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="pmeasyr-imports-mco-dans-une-base-de-données-1" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> pmeasyr : Imports MCO dans une base de données</h1>
+<div id="les-variables-diagnosctics-dans-la-table-rum" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Les variables diagnosctics dans la table RUM</h2>
+<ul>
+<li>DP</li>
+<li>DR</li>
+<li>DAS</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb91-1" aria-hidden="true" tabindex="-1"></a>rum21<span class="sc">$</span>rum <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(das<span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,dp,dr,das)</span></code></pre></div>
+<p>Requête dans les diagnostics principaux</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb92-1" aria-hidden="true" tabindex="-1"></a>diags <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;U0711&quot;</span>,<span class="st">&quot;U0712&quot;</span>,<span class="st">&quot;U0714&quot;</span>,<span class="st">&quot;U0715&quot;</span>)</span>
+<span id="cb92-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb92-2" aria-hidden="true" tabindex="-1"></a>rum21<span class="sc">$</span>rum <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(dp <span class="sc">%in%</span> diags) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,dp,dr,das)</span>
+<span id="cb92-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb92-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb92-4" aria-hidden="true" tabindex="-1"></a>rum21<span class="sc">$</span>rum <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(dp <span class="sc">%in%</span> diags<span class="sc">|</span> dr <span class="sc">%in%</span> diags ) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nas,dp,dr,das)</span></code></pre></div>
+<p>Requete dans les diagnostics associés :</p>
+<p>la fonction <code>grepl</code> de rechercher d’une chaine de caractères dans une autre chaine de caractères (ex un mot dans une phrase)</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;Patrick&quot;</span>, <span class="st">&quot;Patrick mange du poulet&quot;</span>)</span></code></pre></div>
+<p>On peut rechercher plusieurs chaines de caracètères différentes à l’aide du pipe (|)</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;Patrick|Paul&quot;</span>, <span class="st">&quot;Patrick mange du poulet&quot;</span>)</span></code></pre></div>
+<p>Aplliquée sur le format des diagnostcs associés</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb95-1" aria-hidden="true" tabindex="-1"></a>diags <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;U0711&quot;</span>,<span class="st">&quot;U0712&quot;</span>,<span class="st">&quot;U0714&quot;</span>,<span class="st">&quot;U0715&quot;</span>)</span>
+<span id="cb95-2"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb95-2" aria-hidden="true" tabindex="-1"></a>diags <span class="ot">=</span> <span class="st">&quot;U0711|U0712|U0714|U0715&quot;</span></span>
+<span id="cb95-3"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="pmeasyr-imports-mco-dans-une-base-de-données-1.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(diags, dpdrum)<span class="sc">|</span><span class="fu">grepl</span>(diags, das))</span></code></pre></div>
+</div>
+<div id="la-table-diagnostics-des-rum" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> La table diagnostics des RUM</h2>
+<p>*** A noter *** type de diagnostics dans la table <code>rsa$diag</code> :</p>
+<ul>
+<li>1 = DP du séjour</li>
+<li>2 = DR du séjour</li>
+<li>3 = DP des UM</li>
+<li>4 = DR des UM</li>
+<li>5 = DA</li>
+</ul>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="pmeasyr-imports-mco-dans-une-base-de-données.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pmeasyr-imports-mco-dans-une-base-de-données-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -243,7 +276,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/requetes-selection-sejours.Rmd",
 "text": "Edit"
 },
 "history": {

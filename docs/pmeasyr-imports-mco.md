@@ -329,3 +329,5 @@ data21 <- dplyr::bind_rows(data21_2, data21 %>% dplyr::filter(! id %in% c(data21
 
 rm(data21_dms1,data21_dms2,data21_2) 
 ```
+
+*** Au final *** le dataframe ```data21``` contient une ligne par RUM. Il comprend également des données utiles retrouvées dans la table de description des UMA, de l'ANO et des RSA. Il peut être utiliser pour réaliser de nombreux calcul utiles comme nous allons le voir dans les chapitres suivants.

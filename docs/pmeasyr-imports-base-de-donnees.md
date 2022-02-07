@@ -7,35 +7,32 @@ En règle générale ces logiciels utilisent le language de requête SQL. Mais a
 En pratique, on utilise le package DBI, qui permet de se connecter en R à de nombreux logiciels de base de données, et qui est installé par défaut avec ```dplyr``` , et la package ```duckdb``` qui permet d'installer directement avec R à la fois l'application ```duckdb``` et le pilote de connexion R qui sera utilisé par ```DBI```. 
 
 ### Installation de la librarie duckdb pour R
-```{r eval = FALSE}
 
+```r
 install.packages("duckdb")
 
 # Chargement des packages et fonctions utiles
 library(pmeasyr)
 library(duckdb)
 library(referime)
-
-
 ```
 
 Une base duckdb correspond à un fichier unique dont on déclare le chemin 
 
 ### Création d'une connexion
-```{r eval = FALSE}
 
+```r
 #Définition du répertoire de travail
 path_db <- "D:/data/duckdb/pmsi_test.duckdb"
 
 #Parametrage de la connexion à la base de données
 connection_db <- DBI::dbConnect(duckdb::duckdb(), path_db )
-
-
 ```
 
 ### Imports pmeaysr
 
-```{r eval = FALSE}
+
+```r
 # noyau pmeasyr
 
 p <- pmeasyr::noyau_pmeasyr(
@@ -46,31 +43,30 @@ p <- pmeasyr::noyau_pmeasyr(
   progress = F,
   tolower_names = T, # choix de noms de colonnes minuscules : T / F
   lib = F)
-
 ```
 
 
 Les fonctions ```pmeasyr::db_mco_out``` et ```pmeasyr::db_mco_in``` permettent d'importer les principales tables à partir des fichiers de remontée.
 
-```{r eval = FALSE}
+
+```r
 pmeasyr::db_mco_out(connection_db,  p,remove = F, zip = T) 
 
 pmeasyr::db_mco_in(connection_db,  p,remove = F, zip = T) 
 ```
 Importer des informations sur les strcutures à partir de referime (tables amurm)
-```{r eval = FALSE}
 
+```r
 struct <- referime::get_table("amurm_2021")
 struct <- struct %>% dplyr::rename(cdurm = uma_ej) %>%
   dplyr::distinct(cdurm,.keep_all = T)
 
 DBI::dbWriteTable(connection_db, "mco_21_ium",struct )
-
 ```
 
 Visualiser le contenu de la table mco_21_rsa_rsa
-```{r eval = FALSE}
- 
+
+```r
 an = 21
 dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa")
 ```
@@ -81,9 +77,8 @@ Pour l'instant les données restent dans la base de données et ne sont pas impo
 - réaliser des jointure entre les tables (fonction JOIN en SQL) avec ```dplyr::inner_join```  , ```dplyr::left_join```,```dplyr::right_join```,```dplyr::full_join```
 
 Exemple de requêtes complexe utilisée dans le projet Tableau de bord fluidité des parcours
-```{r eval = FALSE}
 
-
+```r
 dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
   
   dplyr::inner_join( 
@@ -100,15 +95,14 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cl
                       dplyr::left_join(.,  dplyr::tbl( connection_db, "mco_" %+% an %+% "_ium" ) %>%
                                          dplyr::select( gh, cdurm, typaut, mode_hospit, nohop, lib_hop, uma,lib_uma, lib_cc9_uma,spe_uma,lib_spe_uma,
                                                         ua, lib_ua,lib_cc9_ua, spe_ua, lib_spe_ua, serv,lib_service, pole, lib_pole) ) ) -> query
-
 ```
 
 En pratique l'ensemble de ce code est transcodé en SQL par ```dplyr``` et envoyé à la base de données. Pour l'instant, il ne s'agit que de code SQL qui sont "testés" sur la base duckdb mais qui ne sont pas importées.
 
 Afin de faire des calcul plus complexes, nous devons importer les données dans R, cette opération est réalisée avec la fonction ```dplyr::collect``` .  
 Une fois
-```{r eval = FALSE}
- 
+
+```r
 an = 21
 dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa")
 ```

@@ -29,7 +29,7 @@ pmeasyr::irsa(p,
 
 
 
-#Dizippage des fihciers in
+#Dézippage des fichiers in
 pmeasyr::adezip(p,
                 liste = c("rss"), 
                 type = "in")
@@ -116,19 +116,19 @@ test %>% dplyr::filter(!is.na(ghm))
 test %>% dplyr::filter(!is.na(ghs))
 
 #2021 pas encore présente dans le fichier, on utilise 2020
-dms_nationales<- dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
+dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
   dplyr::mutate(anseqta = "2021") %>%
-  dplyr::bind_rows(dms_nationales,.)
+  dplyr::bind_rows(dms_nationales,.) -> dms_nationales
 
 
 
 
 #Actes CCAM : icr, actes chriurgicaux
-icr <- referime::get_table("ccam_icr") %>% filter(activite  == 1)
-ccam_rgp <- referime::get_table("ccam_regroupement") %>% filter(activite  == 1, regroupement == "ADC")
-acte_chir <- rgp %>% select(code) %>% inner_join(icr, by = c("code"))
+icr <- referime::get_table("ccam_icr") %>% dplyr::filter(activite  == 1)
+ccam_rgp <- referime::get_table("ccam_regroupement") %>% dplyr::filter(activite  == 1, regroupement == "ADC")
+acte_chir <- ccam_rgp %>% dplyr::select(code) %>% dplyr::inner_join(icr, by = c("code"))
 cim <- referime::get_table("cim") %>%
-  dplyr::distinct(code,.keep_all = TRUE) %>%
+  dplyr::distinct(code, .keep_all = TRUE) %>%
   dplyr::select(code,lib_court)
 #Regroupements GHM
 ghm_rgp <- referime::get_table('ghm_ghm_regroupement')
