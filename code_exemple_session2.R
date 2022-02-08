@@ -5,12 +5,12 @@
 
 # Définir le chemin générique des données
 path_data = 'path/to/your/data/folder'
-path_data = 'C:/Users/3056269/Documents/data/mco'
+path_data = 'D:/data/mco/202111'
 
 #Création d'un noyau de paramètres pmeasyr
 p<-pmeasyr::noyau_pmeasyr(finess = 750712184, 
                           annee = 2021, 
-                          mois = 8, 
+                          mois = 11, 
                           path = path_data,
                           tolower_names = TRUE)
 
@@ -118,7 +118,7 @@ test %>% dplyr::filter(!is.na(ghs))
 #2021 pas encore présente dans le fichier, on utilise 2020
 dms_nationales %>% dplyr::filter(anseqta=="2020") %>%
   dplyr::mutate(anseqta = "2021") %>%
-  dplyr::bind_rows(dms_nationales,.) -> dms_nationales
+  dplyr::bind_rows(.,dms_nationales) -> dms_nationales
 
 
 
@@ -130,9 +130,21 @@ acte_chir <- ccam_rgp %>% dplyr::select(code) %>% dplyr::inner_join(icr, by = c(
 cim <- referime::get_table("cim") %>%
   dplyr::distinct(code, .keep_all = TRUE) %>%
   dplyr::select(code,lib_court)
+
+#Selectionner le dernier libellé disponible
+cim <- referime::get_table("cim")%>% 
+  dplyr::arrange(code,anseqta) %>%
+  dplyr::group_by(code) %>%
+  dplyr::filter(dplyr::row_number()==dplyr::n()) %>%
+  dplyr::select(code,lib_court)
+
 #Regroupements GHM
 ghm_rgp <- referime::get_table('ghm_ghm_regroupement')
 
+write.table(cim,file = "D:/data/cim.csv",sep=";",row.names = FALSE )
+xlsx::write.xlsx(cim,file = "D:/data/cim.xlsx")
+
+#http://referime.aphp.fr:8000/public/accueil.html
 
 # Les jointures
 

@@ -39,6 +39,7 @@ pmeasyr::db_mco_out(connection_db,  p,remove = F, zip = T)
 pmeasyr::db_mco_in(connection_db,  p,remove = F, zip = T) 
 
 
+
 struct <- referime::get_table("amurm_2021")
 struct <- struct %>% dplyr::rename(cdurm = uma_ej) %>%
   dplyr::distinct(cdurm,.keep_all = T)
@@ -52,14 +53,16 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa")
 
 
 
-dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
+dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% 
+  dplyr::select(nas,cle_rsa,dtent,dtsort,factam, pbcmu, motnofact, typecont )  %>%
   
   dplyr::inner_join( 
     # any_of parce que les vars d'eligibilite ne sont dans la table que pour 2021
-    dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa") %>% dplyr::select(any_of(c('cle_rsa','noseqrum','anseqta','ansor','moissor','ghm','noghs','sexe',
-                                                                                       'agean','agejr','echpmsi','prov','schpmsi','dest','nbrum','duree','cdgeo',
-                                                                                       'ell_gradation','surveillance_particuliere','resererve_hosp','rescrit_tarifaire',
-                                                                                       'cat_nb_intervenants'))) ,
+    dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa") %>% 
+      dplyr::select(any_of(c('cle_rsa','noseqrum','anseqta','ansor','moissor','ghm','noghs','sexe',
+                              'agean','agejr','echpmsi','prov','schpmsi','dest','nbrum','duree','cdgeo',
+                               'ell_gradation','surveillance_particuliere','resererve_hosp','rescrit_tarifaire',
+                                'cat_nb_intervenants'))) ,
     . ) %>% 
   
   #type de séjours

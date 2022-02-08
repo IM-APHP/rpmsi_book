@@ -72,6 +72,7 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa")
 ```
 
 Pour l'instant les données restent dans la base de données et ne sont pas importer dans la mémoire comme traditionnellement en R. Les opération classique en SQL sont possible:
+
 - sélection des colonnes (clause SELECT en SQL) avec ```dplyr::select```
 - appliquer des critères de sélection sur les données (clause WHERE en SQL) avec ```dplyr::filter```
 - réaliser des jointure entre les tables (fonction JOIN en SQL) avec ```dplyr::inner_join```  , ```dplyr::left_join```,```dplyr::right_join```,```dplyr::full_join```
@@ -83,7 +84,8 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cl
   
   dplyr::inner_join( 
     # any_of parce que les vars d'eligibilite ne sont dans la table que pour 2021
-    dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa") %>% dplyr::select(any_of(c('cle_rsa','noseqrum','anseqta','ansor','moissor','ghm','noghs','sexe',
+    dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa") %>%
+      dplyr::select(any_of(c('cle_rsa','noseqrum','anseqta','ansor','moissor','ghm','noghs','sexe',
                                                                                        'agean','agejr','echpmsi','prov','schpmsi','dest','nbrum','duree','cdgeo',
                                                                                        'ell_gradation','surveillance_particuliere','resererve_hosp','rescrit_tarifaire',
                                                                                        'cat_nb_intervenants'))) ,
@@ -97,12 +99,17 @@ dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_ano") %>% dplyr::select(nas,cl
                                                         ua, lib_ua,lib_cc9_ua, spe_ua, lib_spe_ua, serv,lib_service, pole, lib_pole) ) ) -> query
 ```
 
-En pratique l'ensemble de ce code est transcodé en SQL par ```dplyr``` et envoyé à la base de données. Pour l'instant, il ne s'agit que de code SQL qui sont "testés" sur la base duckdb mais qui ne sont pas importées.
+```r
+query %>% dplyr::show_query()
+```
+
+
+En pratique l'ensemble de ce code est transcodé en SQL par ```dplyr``` et envoyé à la base de données. 
+A ce stade le code SQL qui est "testé" sur la base duckdb mais les données ne sont pas importées dans R.
 
 Afin de faire des calcul plus complexes, nous devons importer les données dans R, cette opération est réalisée avec la fonction ```dplyr::collect``` .  
-Une fois
+
 
 ```r
-an = 21
-dplyr::tbl(connection_db, "mco_" %+% an %+% "_rsa_rsa")
+df <- query %>% dplyr::collect()
 ```
