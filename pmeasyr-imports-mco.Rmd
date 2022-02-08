@@ -175,6 +175,8 @@ NB: on voit qu'un package peut contenir à la fois des fonctions et des jeux de 
 
 Le package [referime](https://github.com/NamikTaright/referime) maintenu par Namik Taright alimente le serveur de référentiels du DIM de l'AP-HP. Il est  à la base d'un webservice utilisé par différents entités de l'institution pour accéder aux référentiels PMSI. Il contient de nombreux fichiers de références utiles pour l'analyse des données PMSI.
 
+Plus d'information sur l'intranet de l'AP-HP : [referime.aphp.frr](http://referime.aphp.fr:8000/public/accueil.html)
+
 ### Fichier descriptif des UMA sur referime
 
 Le fichier AMURM est maintenu par le DIM du siège et comprend de nombreuses données utiles sur les UM. Dans sa forme actuelle il comprend également les UA qui sont le niveau en dessous de l'UMA. Dans la mesure où il peut y avoir plusieurs UA par UMA, il peut contenir plusieurs lignes pour une seule UMA. 
