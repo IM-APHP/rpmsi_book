@@ -25,3 +25,4 @@ pmeasyr-imports-mco-dans-une-base-de-données
 installation-de-la-librarie-duckdb-pour-r
 création-dune-connexion
 imports-pmeaysr
+création-dune-requêtes-complexe
